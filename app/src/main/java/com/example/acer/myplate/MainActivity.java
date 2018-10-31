@@ -26,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ImageView myImageView = (ImageView) findViewById(R.id.imgview);
                 //load image, decode it into a bitmap
-                Bitmap myBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.puppy);
+                Bitmap myBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.barcode);
                 //set it as the bitmap for MyImageView
                 myImageView.setImageBitmap(myBitmap);
                 //set up barcode detector and make sure it is working
