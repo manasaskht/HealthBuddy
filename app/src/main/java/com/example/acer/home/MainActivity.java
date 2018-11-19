@@ -4,10 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,34 +22,39 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.List;
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    CurrentFragmentEnum currentFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-       /* FloatingActionButton grocery = (FloatingActionButton) findViewById(R.id.grocery);
-        grocery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        try {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setItemIconTintList(null);
+            navigationView.setNavigationItemSelectedListener(this);
+            if (savedInstanceState == null) {
+                // Set the grocery fragment as default screen
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new GroceriesFragment()).commit();
+                currentFragment=CurrentFragmentEnum.Groceries;
+                //select the grocery navigation menu by default
+                //navigationView.setCheckedItem(R.id.nav_view);
             }
-        });*/
+        }
+        catch (Exception ex)
+        {
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setItemIconTintList(null);
-        navigationView.setNavigationItemSelectedListener(this);
+        }
     }
 
     @Override
@@ -61,8 +69,22 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+
+        //setTitle(currentFragment);
+        if (Objects.equals(currentFragment,CurrentFragmentEnum.Groceries))
+        {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+        else {
+            //Reference URL: https://stackoverflow.com/questions/10692755/how-do-i-hide-a-menu-item-in-the-actionbar
+           for (int i=0; i < menu.size();i++)
+           {
+               menu.getItem(i).setVisible(false);
+           }
+
+            //return false;
+        }
         return true;
     }
 
@@ -74,7 +96,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.search_button) {
+        if (id == R.id.btnAddGrocery) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new RecipesFragment()).commit();
             return true;
         }
 
@@ -86,63 +109,81 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        try {
+            // Handle navigation view item clicks here.
+            Intent i;
 
-        int id = item.getItemId();
+            switch(item.getItemId())
+            {
+                case  R.id.help :
+                    i = new Intent(this, HelpActivity.class);
+                    startActivity(i);
+                    break;
 
-        if (id == R.id.help) {
-            Intent i = new Intent(this, HelpActivity.class);
-            startActivity(i);
-        } else if (id == R.id.call) {
-            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
-            dialIntent.setData(Uri.parse("tel:" +"9027896475"));
-            startActivity(dialIntent);
-        } else if (id == R.id.logout) {
+                case R.id.call:
+                    Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+                    dialIntent.setData(Uri.parse("tel:" + "9027896475"));
+                    startActivity(dialIntent);
+                    break;
+                case R.id.logout:
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Logout Activity")
+                            .setMessage("Are you sure you want to Logout?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(MainActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
 
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Logout Activity")
-                    .setMessage("Are you sure you want to Logout?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(MainActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                    finish();
 
-                            startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                            finish();
+                                }
 
-                        }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+                    break;
+                case  R.id.Settings:
+                    i = new Intent(this, SettingsActivity.class);
+                    startActivity(i);
+                    break;
+                case  R.id.myaccount:
+                    i = new Intent(this, MyAccountActivity.class);
+                    startActivity(i);
+                    break;
+                case R.id.recipes:
 
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new RecipesFragment()).commit();
+                    invalidateOptionsMenu();// now onCreateOptionsMenu(...) is called again
+                    currentFragment = CurrentFragmentEnum.Recipes;
+                    break;
+                case R.id.groceries :
 
-        }
-        else if (id == R.id.Settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivity(i);
-        }
-        else if (id == R.id.myaccount) {
-            Intent i = new Intent(this, MyAccountActivity.class);
-            startActivity(i);
-        } else if (id == R.id.recipes) {
-            Intent i = new Intent(this, RecepiesActivity.class);
-            startActivity(i);
-        }
-        else if (id == R.id.groceries) {
-            Intent i = new Intent(this, GroceriesActivity.class);
-            startActivity(i);
-
-        }
-        else if (id == R.id.Activity) {
-            Intent i = new Intent(this, Activity.class);
-            startActivity(i);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
+                    invalidateOptionsMenu();// now onCreateOptionsMenu(...) is called again
+                    currentFragment = CurrentFragmentEnum.Groceries;
+                break;
+                case R.id.Activity :
+                    i = new Intent(this, Activity.class);
+                    break;
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+        }
+        catch (Exception ex)
+        {
+
+        }
         return true;
+    }
+    public enum CurrentFragmentEnum
+    {
+        Groceries,
+        Recipes,
+        Activity
     }
 }
