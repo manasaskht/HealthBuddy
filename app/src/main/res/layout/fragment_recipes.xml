@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
+<!-- Reference URL: https://stackoverflow.com/questions/32986588/layout-for-fragment-overlapping-toolbar -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:text="Recipes"
-    android:layout_marginTop="50dp"
-    android:textSize="50dp"/>
-</LinearLayout>
+    android:layout_marginTop="?attr/actionBarSize">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerVwRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" ></android.support.v7.widget.RecyclerView>
+</FrameLayout>
