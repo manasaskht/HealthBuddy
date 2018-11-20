@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.btnAddGrocery) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new RecipesFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new AddGrocery()).commit();
             return true;
         }
 
@@ -168,10 +168,10 @@ public class MainActivity extends AppCompatActivity
                     i = new Intent(this, Activity.class);
                     break;
 
-        }
+            }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
 
         }
         catch (Exception ex)
