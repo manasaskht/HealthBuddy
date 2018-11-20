@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddGrocery"
+    android:orientation="vertical">
+    <!-- Reference URL: https://stackoverflow.com/questions/32986588/layout-for-fragment-overlapping-toolbar -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/lblGroceryName"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:textSize="20sp"/>
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoTxtSearchGrocery"
+        android:completionThreshold="1"
+        android:hint="@string/GroceryTextHint"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lblQuantity"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/QuanitityHint"
+        android:id="@+id/txtQuantity"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lblExpiryDate"
+        android:textSize="20sp"
+        android:layout_marginTop="20sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtExpiryDate"
+        android:hint="@string/ExpiryDateHint"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnLblSave"
+        android:id="@+id/btnSave"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        />
+</LinearLayout>

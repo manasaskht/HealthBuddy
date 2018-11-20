@@ -41,4 +41,11 @@
     <string name="nav_call">Call Customer Care</string>
     <string name="nav_home">Home</string>
     <string name="nav_logout">Logout</string>
+    <string name="lblGroceryName">Please enter Grocery</string>
+    <string name="GroceryTextHint">Grocery Name</string>
+    <string name="lblQuantity">Please enter Quantity</string>
+    <string name="QuanitityHint">Quantity</string>
+    <string name="lblExpiryDate">Please enter Expiry Date</string>
+    <string name="btnLblSave">Save</string>
+    <string name="ExpiryDateHint">Select the grocery expiry date</string>
 </resources>
