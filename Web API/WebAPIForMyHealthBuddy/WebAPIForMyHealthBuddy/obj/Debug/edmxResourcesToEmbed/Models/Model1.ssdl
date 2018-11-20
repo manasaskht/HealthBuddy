@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyHealthBuddyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NoOfSteps" Type="int" />
+    <Property Name="ActivityDate" Type="date" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Consumption">
+    <Key>
+      <PropertyRef Name="ConsumptionID" />
+    </Key>
+    <Property Name="ConsumptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ConsumptionQty" Type="int" />
+    <Property Name="ConsumptionDate" Type="date" />
+    <Property Name="ConsumptionCalories" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Grocery">
+    <Key>
+      <PropertyRef Name="GroceryID" />
+    </Key>
+    <Property Name="GroceryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroceryName" Type="varchar" MaxLength="20" />
+    <Property Name="Calories" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ExpiryDate" Type="datetime" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="GroceryMasterID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroceryMaster">
+    <Key>
+      <PropertyRef Name="BarcodeID" />
+    </Key>
+    <Property Name="BarcodeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroceryName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CaloriePer100gm" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="RecipeDetail">
+    <Key>
+      <PropertyRef Name="RecipeDetailID" />
+    </Key>
+    <Property Name="RecipeDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecipeDescription" Type="text" />
+    <Property Name="IngredientIds" Type="varchar(max)" />
+    <Property Name="RecipeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Recipes">
+    <Key>
+      <PropertyRef Name="RecipeID" />
+    </Key>
+    <Property Name="RecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecipeName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RecipeImage" Type="varbinary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Settings">
+    <Key>
+      <PropertyRef Name="SettingsID" />
+    </Key>
+    <Property Name="SettingsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SettingName" Type="varchar" MaxLength="20" />
+    <Property Name="SettingValue" Type="varchar" MaxLength="20" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="varchar" MaxLength="30" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="Height" Type="int" />
+    <Property Name="Weight" Type="int" />
+  </EntityType>
+  <Association Name="FK__Activity__UserID__19DFD96B">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Activity">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Consumpti__UserI__1CBC4616">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Consumption" Type="Self.Consumption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Consumption">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Grocery__Grocery__2180FB33">
+    <End Role="GroceryMaster" Type="Self.GroceryMaster" Multiplicity="1" />
+    <End Role="Grocery" Type="Self.Grocery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroceryMaster">
+        <PropertyRef Name="BarcodeID" />
+      </Principal>
+      <Dependent Role="Grocery">
+        <PropertyRef Name="GroceryMasterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Grocery__UserID__22751F6C">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Grocery" Type="Self.Grocery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Grocery">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RecipeDet__Recip__2739D489">
+    <End Role="Recipes" Type="Self.Recipes" Multiplicity="1" />
+    <End Role="RecipeDetail" Type="Self.RecipeDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipes">
+        <PropertyRef Name="RecipeID" />
+      </Principal>
+      <Dependent Role="RecipeDetail">
+        <PropertyRef Name="RecipeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Settings__UserID__17036CC0">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Settings" Type="Self.Settings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Settings">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyHealthBuddyModelStoreContainer">
+    <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Consumption" EntityType="Self.Consumption" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grocery" EntityType="Self.Grocery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroceryMaster" EntityType="Self.GroceryMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RecipeDetail" EntityType="Self.RecipeDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Recipes" EntityType="Self.Recipes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Activity__UserID__19DFD96B" Association="Self.FK__Activity__UserID__19DFD96B">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Activity" EntitySet="Activity" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Consumpti__UserI__1CBC4616" Association="Self.FK__Consumpti__UserI__1CBC4616">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Consumption" EntitySet="Consumption" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Grocery__Grocery__2180FB33" Association="Self.FK__Grocery__Grocery__2180FB33">
+      <End Role="GroceryMaster" EntitySet="GroceryMaster" />
+      <End Role="Grocery" EntitySet="Grocery" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Grocery__UserID__22751F6C" Association="Self.FK__Grocery__UserID__22751F6C">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Grocery" EntitySet="Grocery" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RecipeDet__Recip__2739D489" Association="Self.FK__RecipeDet__Recip__2739D489">
+      <End Role="Recipes" EntitySet="Recipes" />
+      <End Role="RecipeDetail" EntitySet="RecipeDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Settings__UserID__17036CC0" Association="Self.FK__Settings__UserID__17036CC0">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Settings" EntitySet="Settings" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

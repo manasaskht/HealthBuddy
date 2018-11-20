@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyHealthBuddyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoOfSteps" Type="int" />
+          <Property Name="ActivityDate" Type="date" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Consumption">
+          <Key>
+            <PropertyRef Name="ConsumptionID" />
+          </Key>
+          <Property Name="ConsumptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConsumptionQty" Type="int" />
+          <Property Name="ConsumptionDate" Type="date" />
+          <Property Name="ConsumptionCalories" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grocery">
+          <Key>
+            <PropertyRef Name="GroceryID" />
+          </Key>
+          <Property Name="GroceryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroceryName" Type="varchar" MaxLength="20" />
+          <Property Name="Calories" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="GroceryMasterID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroceryMaster">
+          <Key>
+            <PropertyRef Name="BarcodeID" />
+          </Key>
+          <Property Name="BarcodeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroceryName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CaloriePer100gm" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="RecipeDetail">
+          <Key>
+            <PropertyRef Name="RecipeDetailID" />
+          </Key>
+          <Property Name="RecipeDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecipeDescription" Type="text" />
+          <Property Name="IngredientIds" Type="varchar(max)" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recipes">
+          <Key>
+            <PropertyRef Name="RecipeID" />
+          </Key>
+          <Property Name="RecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecipeName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RecipeImage" Type="varbinary" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="SettingsID" />
+          </Key>
+          <Property Name="SettingsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SettingName" Type="varchar" MaxLength="20" />
+          <Property Name="SettingValue" Type="varchar" MaxLength="20" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Height" Type="int" />
+          <Property Name="Weight" Type="int" />
+        </EntityType>
+        <Association Name="FK__Activity__UserID__19DFD96B">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Consumpti__UserI__1CBC4616">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Consumption" Type="Self.Consumption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Consumption">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grocery__Grocery__2180FB33">
+          <End Role="GroceryMaster" Type="Self.GroceryMaster" Multiplicity="1" />
+          <End Role="Grocery" Type="Self.Grocery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroceryMaster">
+              <PropertyRef Name="BarcodeID" />
+            </Principal>
+            <Dependent Role="Grocery">
+              <PropertyRef Name="GroceryMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grocery__UserID__22751F6C">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Grocery" Type="Self.Grocery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Grocery">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecipeDet__Recip__2739D489">
+          <End Role="Recipes" Type="Self.Recipes" Multiplicity="1" />
+          <End Role="RecipeDetail" Type="Self.RecipeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipes">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="RecipeDetail">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Settings__UserID__17036CC0">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Settings" Type="Self.Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Settings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyHealthBuddyModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consumption" EntityType="Self.Consumption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grocery" EntityType="Self.Grocery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroceryMaster" EntityType="Self.GroceryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecipeDetail" EntityType="Self.RecipeDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipes" EntityType="Self.Recipes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Activity__UserID__19DFD96B" Association="Self.FK__Activity__UserID__19DFD96B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Consumpti__UserI__1CBC4616" Association="Self.FK__Consumpti__UserI__1CBC4616">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Consumption" EntitySet="Consumption" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grocery__Grocery__2180FB33" Association="Self.FK__Grocery__Grocery__2180FB33">
+            <End Role="GroceryMaster" EntitySet="GroceryMaster" />
+            <End Role="Grocery" EntitySet="Grocery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grocery__UserID__22751F6C" Association="Self.FK__Grocery__UserID__22751F6C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Grocery" EntitySet="Grocery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecipeDet__Recip__2739D489" Association="Self.FK__RecipeDet__Recip__2739D489">
+            <End Role="Recipes" EntitySet="Recipes" />
+            <End Role="RecipeDetail" EntitySet="RecipeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Settings__UserID__17036CC0" Association="Self.FK__Settings__UserID__17036CC0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Settings" EntitySet="Settings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyHealthBuddyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="NoOfSteps" Type="Int32" />
+          <Property Name="ActivityDate" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Activity__UserID__534D60F1" FromRole="Activity" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Consumption">
+          <Key>
+            <PropertyRef Name="ConsumptionID" />
+          </Key>
+          <Property Name="ConsumptionID" Type="Int32" Nullable="false" />
+          <Property Name="ConsumptionQty" Type="Int32" />
+          <Property Name="ConsumptionDate" Type="DateTime" Precision="0" />
+          <Property Name="ConsumptionCalories" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Consumpti__UserI__5070F446" FromRole="Consumption" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Grocery">
+          <Key>
+            <PropertyRef Name="GroceryID" />
+          </Key>
+          <Property Name="GroceryID" Type="Int32" Nullable="false" />
+          <Property Name="GroceryName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Calories" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="GroceryMasterID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GroceryMaster" Relationship="Self.FK__Grocery__Grocery__5BE2A6F2" FromRole="Grocery" ToRole="GroceryMaster" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Grocery__UserID__5CD6CB2B" FromRole="Grocery" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="GroceryMaster">
+          <Key>
+            <PropertyRef Name="BarcodeID" />
+          </Key>
+          <Property Name="BarcodeID" Type="Int32" Nullable="false" />
+          <Property Name="GroceryName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Groceries" Relationship="Self.FK__Grocery__Grocery__5BE2A6F2" FromRole="GroceryMaster" ToRole="Grocery" />
+          <Property Name="CaloriePer100gm" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="RecipeDetail">
+          <Key>
+            <PropertyRef Name="RecipeDetailID" />
+          </Key>
+          <Property Name="RecipeDetailID" Type="Int32" Nullable="false" />
+          <Property Name="RecipeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IngredientIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK__RecipeDet__Recip__5FB337D6" FromRole="RecipeDetail" ToRole="Recipes" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="RecipeID" />
+          </Key>
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <Property Name="RecipeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RecipeImage" Type="Binary" MaxLength="1" FixedLength="false" />
+          <NavigationProperty Name="RecipeDetails" Relationship="Self.FK__RecipeDet__Recip__5FB337D6" FromRole="Recipes" ToRole="RecipeDetail" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="SettingsID" />
+          </Key>
+          <Property Name="SettingsID" Type="Int32" Nullable="false" />
+          <Property Name="SettingName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SettingValue" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Settings__UserID__4D94879B" FromRole="Settings" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Activities" Relationship="Self.FK__Activity__UserID__534D60F1" FromRole="Users" ToRole="Activity" />
+          <NavigationProperty Name="Consumptions" Relationship="Self.FK__Consumpti__UserI__5070F446" FromRole="Users" ToRole="Consumption" />
+          <NavigationProperty Name="Groceries" Relationship="Self.FK__Grocery__UserID__5CD6CB2B" FromRole="Users" ToRole="Grocery" />
+          <NavigationProperty Name="Settings" Relationship="Self.FK__Settings__UserID__4D94879B" FromRole="Users" ToRole="Settings" />
+          <Property Name="Height" Type="Int32" />
+          <Property Name="Weight" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__Activity__UserID__534D60F1">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Consumpti__UserI__5070F446">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Consumption" Type="Self.Consumption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Consumption">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grocery__Grocery__5BE2A6F2">
+          <End Role="GroceryMaster" Type="Self.GroceryMaster" Multiplicity="1" />
+          <End Role="Grocery" Type="Self.Grocery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroceryMaster">
+              <PropertyRef Name="BarcodeID" />
+            </Principal>
+            <Dependent Role="Grocery">
+              <PropertyRef Name="GroceryMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grocery__UserID__5CD6CB2B">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Grocery" Type="Self.Grocery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Grocery">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecipeDet__Recip__5FB337D6">
+          <End Role="Recipes" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="RecipeDetail" Type="Self.RecipeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipes">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="RecipeDetail">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Settings__UserID__4D94879B">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Settings" Type="Self.Setting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Settings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyHealthBuddyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activities" EntityType="Self.Activity" />
+          <EntitySet Name="Consumptions" EntityType="Self.Consumption" />
+          <EntitySet Name="Groceries" EntityType="Self.Grocery" />
+          <EntitySet Name="GroceryMasters" EntityType="Self.GroceryMaster" />
+          <EntitySet Name="RecipeDetails" EntityType="Self.RecipeDetail" />
+          <EntitySet Name="Recipes" EntityType="Self.Recipe" />
+          <EntitySet Name="Settings" EntityType="Self.Setting" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Activity__UserID__534D60F1" Association="Self.FK__Activity__UserID__534D60F1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Consumpti__UserI__5070F446" Association="Self.FK__Consumpti__UserI__5070F446">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Consumption" EntitySet="Consumptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grocery__Grocery__5BE2A6F2" Association="Self.FK__Grocery__Grocery__5BE2A6F2">
+            <End Role="GroceryMaster" EntitySet="GroceryMasters" />
+            <End Role="Grocery" EntitySet="Groceries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grocery__UserID__5CD6CB2B" Association="Self.FK__Grocery__UserID__5CD6CB2B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Grocery" EntitySet="Groceries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecipeDet__Recip__5FB337D6" Association="Self.FK__RecipeDet__Recip__5FB337D6">
+            <End Role="Recipes" EntitySet="Recipes" />
+            <End Role="RecipeDetail" EntitySet="RecipeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Settings__UserID__4D94879B" Association="Self.FK__Settings__UserID__4D94879B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Settings" EntitySet="Settings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyHealthBuddyModelStoreContainer" CdmEntityContainer="MyHealthBuddyEntities">
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="NoOfSteps" ColumnName="NoOfSteps" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consumptions">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.Consumption">
+              <MappingFragment StoreEntitySet="Consumption">
+                <ScalarProperty Name="ConsumptionID" ColumnName="ConsumptionID" />
+                <ScalarProperty Name="ConsumptionQty" ColumnName="ConsumptionQty" />
+                <ScalarProperty Name="ConsumptionDate" ColumnName="ConsumptionDate" />
+                <ScalarProperty Name="ConsumptionCalories" ColumnName="ConsumptionCalories" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groceries">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.Grocery">
+              <MappingFragment StoreEntitySet="Grocery">
+                <ScalarProperty Name="GroceryID" ColumnName="GroceryID" />
+                <ScalarProperty Name="GroceryName" ColumnName="GroceryName" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="GroceryMasterID" ColumnName="GroceryMasterID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroceryMasters">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.GroceryMaster">
+              <MappingFragment StoreEntitySet="GroceryMaster">
+                <ScalarProperty Name="CaloriePer100gm" ColumnName="CaloriePer100gm" />
+                <ScalarProperty Name="BarcodeID" ColumnName="BarcodeID" />
+                <ScalarProperty Name="GroceryName" ColumnName="GroceryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecipeDetails">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.RecipeDetail">
+              <MappingFragment StoreEntitySet="RecipeDetail">
+                <ScalarProperty Name="RecipeDetailID" ColumnName="RecipeDetailID" />
+                <ScalarProperty Name="RecipeDescription" ColumnName="RecipeDescription" />
+                <ScalarProperty Name="IngredientIds" ColumnName="IngredientIds" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipes">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.Recipe">
+              <MappingFragment StoreEntitySet="Recipes">
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+                <ScalarProperty Name="RecipeName" ColumnName="RecipeName" />
+                <ScalarProperty Name="RecipeImage" ColumnName="RecipeImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="SettingsID" ColumnName="SettingsID" />
+                <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+                <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MyHealthBuddyModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

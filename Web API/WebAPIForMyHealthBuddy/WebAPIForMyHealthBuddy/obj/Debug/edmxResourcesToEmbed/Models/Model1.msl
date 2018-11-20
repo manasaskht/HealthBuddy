@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyHealthBuddyModelStoreContainer" CdmEntityContainer="MyHealthBuddyEntities">
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.Activity">
+        <MappingFragment StoreEntitySet="Activity">
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="NoOfSteps" ColumnName="NoOfSteps" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consumptions">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.Consumption">
+        <MappingFragment StoreEntitySet="Consumption">
+          <ScalarProperty Name="ConsumptionID" ColumnName="ConsumptionID" />
+          <ScalarProperty Name="ConsumptionQty" ColumnName="ConsumptionQty" />
+          <ScalarProperty Name="ConsumptionDate" ColumnName="ConsumptionDate" />
+          <ScalarProperty Name="ConsumptionCalories" ColumnName="ConsumptionCalories" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groceries">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.Grocery">
+        <MappingFragment StoreEntitySet="Grocery">
+          <ScalarProperty Name="GroceryID" ColumnName="GroceryID" />
+          <ScalarProperty Name="GroceryName" ColumnName="GroceryName" />
+          <ScalarProperty Name="Calories" ColumnName="Calories" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="GroceryMasterID" ColumnName="GroceryMasterID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroceryMasters">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.GroceryMaster">
+        <MappingFragment StoreEntitySet="GroceryMaster">
+          <ScalarProperty Name="CaloriePer100gm" ColumnName="CaloriePer100gm" />
+          <ScalarProperty Name="BarcodeID" ColumnName="BarcodeID" />
+          <ScalarProperty Name="GroceryName" ColumnName="GroceryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecipeDetails">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.RecipeDetail">
+        <MappingFragment StoreEntitySet="RecipeDetail">
+          <ScalarProperty Name="RecipeDetailID" ColumnName="RecipeDetailID" />
+          <ScalarProperty Name="RecipeDescription" ColumnName="RecipeDescription" />
+          <ScalarProperty Name="IngredientIds" ColumnName="IngredientIds" />
+          <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recipes">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.Recipe">
+        <MappingFragment StoreEntitySet="Recipes">
+          <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+          <ScalarProperty Name="RecipeName" ColumnName="RecipeName" />
+          <ScalarProperty Name="RecipeImage" ColumnName="RecipeImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.Setting">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="SettingsID" ColumnName="SettingsID" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MyHealthBuddyModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
