@@ -24,7 +24,12 @@ import android.widget.Toast;
 
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * This class contains the code to link all fragments of navigation panel
+ * @author  Theja Manasa
+ * @version 1.0
+ * @since   15 November, 2018
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     CurrentFragmentEnum currentFragment;

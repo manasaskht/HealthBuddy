@@ -44,12 +44,21 @@
         android:id="@+id/txtExpiryDate"
         android:hint="@string/ExpiryDateHint"
         />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="you will be notified one day before expiry date"
+
+        android:checked="true" />
     <Button
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnLblSave"
-        android:id="@+id/btnSave"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        />
+        android:text="@string/btnLblSave" />
+
 </LinearLayout>
