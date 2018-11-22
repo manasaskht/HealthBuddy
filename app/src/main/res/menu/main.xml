@@ -4,7 +4,7 @@
     <item
         android:id="@+id/btnAddGrocery"
         android:title=""
-        android:icon="@drawable/ic_add_box_black_24dp"
+        android:icon="@drawable/add_grocery_icon"
         app:showAsAction="always"
         />
 </menu>
