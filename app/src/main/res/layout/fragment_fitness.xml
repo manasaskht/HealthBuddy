@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10"
+    android:layout_marginBottom="?attr/actionBarSize"
+    android:layout_marginTop="?attr/actionBarSize"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="10">
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"/>
+        android:layout_weight="7" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1.5"
         android:orientation="horizontal"
         android:padding="1sp"
-        android:layout_weight="1.5"
         android:weightSum="2">
 
         <TextView
@@ -25,40 +27,42 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textAlignment="center"
             android:gravity="center"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/tvKilometers"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textAlignment="center"
             android:gravity="center"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1.5"
         android:orientation="horizontal"
         android:padding="1sp"
-        android:layout_weight="1.5"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:clickable="true"
+        android:focusableInTouchMode="true" >
 
         <EditText
             android:id="@+id/etCalories"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:hint="Enter Target Calories"
+            android:hint="@string/etUpdateCalories"
+            android:inputType="number"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:inputType="number"/>
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/btUpdateCalories"
@@ -66,8 +70,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="15sp"/>
+            android:text="Update"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
     </LinearLayout>
 
-</LinearLayout >
+</LinearLayout>
