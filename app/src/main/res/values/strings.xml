@@ -48,4 +48,9 @@
     <string name="lblExpiryDate">Please enter Expiry Date</string>
     <string name="btnLblSave">Save</string>
     <string name="ExpiryDateHint">Select the grocery expiry date</string>
+
+    <string name="etUpdateCalories">Enter Target Calories:</string>
+    <string name="btnUpdateCalories">Update</string>
+    <string name="savedSteps">savedSteps</string>
+    <string name="savedCalories">savedCalories</string>
 </resources>

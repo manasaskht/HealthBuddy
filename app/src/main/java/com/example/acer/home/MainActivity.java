@@ -1,8 +1,13 @@
 package com.example.acer.home;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -26,14 +31,28 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
     CurrentFragmentEnum currentFragment;
+
+    private SensorManager sensorManager;
+
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
         try {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -125,6 +144,7 @@ public class MainActivity extends AppCompatActivity
                     dialIntent.setData(Uri.parse("tel:" + "9027896475"));
                     startActivity(dialIntent);
                     break;
+
                 case R.id.logout:
                     new AlertDialog.Builder(this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -144,28 +164,33 @@ public class MainActivity extends AppCompatActivity
                             .setNegativeButton("No", null)
                             .show();
                     break;
+
                 case  R.id.Settings:
                     i = new Intent(this, SettingsActivity.class);
                     startActivity(i);
                     break;
+
                 case  R.id.myaccount:
                     i = new Intent(this, MyAccountActivity.class);
                     startActivity(i);
                     break;
-                case R.id.recipes:
 
+                case R.id.recipes:
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new RecipesFragment()).commit();
                     invalidateOptionsMenu();// now onCreateOptionsMenu(...) is called again
                     currentFragment = CurrentFragmentEnum.Recipes;
                     break;
-                case R.id.groceries :
 
+                case R.id.groceries :
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
                     invalidateOptionsMenu();// now onCreateOptionsMenu(...) is called again
                     currentFragment = CurrentFragmentEnum.Groceries;
-                break;
+                    break;
+
                 case R.id.Activity :
-                    i = new Intent(this, Activity.class);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new FitnessFragment()).commit();
+                    invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
+                    currentFragment = CurrentFragmentEnum.Activity;
                     break;
 
             }
@@ -180,6 +205,18 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        editor.putInt(getString(R.string.savedSteps), (int) event.values[0]);
+        editor.commit();
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        return;
+    }
+
     public enum CurrentFragmentEnum
     {
         Groceries,
