@@ -59,7 +59,7 @@ public class FitnessFragment extends Fragment {
                 } else {
                     totalCalories = Float.parseFloat(etCalories.getText() + "");
                     editor.putFloat(getString(R.string.savedCalories) , totalCalories);
-                    editor.apply();
+                    editor.commit();
                     updateChart();
                 }
             }
@@ -70,6 +70,18 @@ public class FitnessFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
+        updateChart();
+        chart.invalidate();
+    }
+
+    public void onResume() {
+        super.onResume();
+        updateChart();
+        chart.invalidate();
+    }
+
+    public void onPause() {
+        super.onPause();
         updateChart();
         chart.invalidate();
     }

@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onSensorChanged(SensorEvent event) {
         editor.putInt(getString(R.string.savedSteps), (int) event.values[0]);
-        editor.apply();
+        editor.commit();
     }
 
     @Override
