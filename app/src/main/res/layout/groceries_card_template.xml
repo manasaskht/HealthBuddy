@@ -11,13 +11,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:weightSum="3">
+    android:weightSum="4">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/txtGroceryName"
         android:layout_weight="1"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         />
     <TextView
@@ -25,15 +25,31 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtQuantity"
         android:layout_weight="1"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:inputType="number"
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtExpiryDate"
         android:layout_weight="1"
         android:layout_gravity="right"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit_black"
+        android:id="@+id/imgEdit"
+        android:layout_weight="1"
+        />
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/ic_delete_black"-->
+        <!--android:id="@+id/imgDel"-->
+        <!--android:layout_weight="1"-->
+        <!--/>-->
 </LinearLayout>
 </android.support.v7.widget.CardView>
