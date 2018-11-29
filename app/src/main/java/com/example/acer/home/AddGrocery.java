@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v4.app.FragmentManager;
+import com.example.acer.home.Model.DBImplementer;
+import com.example.acer.home.Model.DBRepository;
+import com.example.acer.home.Model.GroceryModel;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * This class contains the code to implement searchable text box and saving the user details to Database
@@ -32,9 +37,9 @@ import java.util.Calendar;
  *
  */
 public class AddGrocery extends Fragment {
-     final String [] groceriesList = new String[]{"Banana", "Apple"};
+     final String [] groceriesList = new String[]{"Banana", "Apple","Bread","Butter","Milk"};
      DatePickerDialog.OnDateSetListener setDateListener;
-
+     private String TAG ="AddGrcoery";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +47,8 @@ public class AddGrocery extends Fragment {
         final View addGroceryView = inflater.inflate(R.layout.fragment_add_grocery,container,false);
         final EditText txtExpiryDate = addGroceryView.findViewById(R.id.txtExpiryDate);
         final Button btnSaveGroceryDetail = addGroceryView.findViewById(R.id.btnSave);
-        AutoCompleteTextView txtSearchBox = addGroceryView.findViewById(R.id.autoTxtSearchGrocery);
+        final AutoCompleteTextView txtSearchBox = addGroceryView.findViewById(R.id.autoTxtSearchGrocery);
+        final EditText txtAddQuantity = addGroceryView.findViewById(R.id.txtQuantity);
         // URL Reference : https://stackoverflow.com/questions/2696846/from-autocomplete-textbox-to-database-search-and-display
         ArrayAdapter <String> adapter = new ArrayAdapter<String>(addGroceryView.getContext(), R.layout.searchable_list_view,groceriesList);
         txtSearchBox.setAdapter(adapter);
@@ -67,13 +73,17 @@ public class AddGrocery extends Fragment {
             public  void onDateSet (DatePicker view, int year, int month, int dayOfMonth)
             {
                 month = month +1;
-                String date = month + "/" + dayOfMonth + "/" + year;
+                String date = dayOfMonth + "-" + month + "-" + year;
                 txtExpiryDate.setText(date);
             }
         };
         btnSaveGroceryDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DBRepository groceryRepository =new DBRepository(getContext());
+                List<GroceryModel> groceryCount= groceryRepository.ViewGroceries();
+                GroceryModel addGroceryModel = new GroceryModel(groceryCount.size() + 1,txtSearchBox.getText().toString(),Integer.parseInt(txtAddQuantity.getText().toString()),txtExpiryDate.getText().toString());
+                groceryRepository.InsertGrocery(addGroceryModel);
             getFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
             }
         });
