@@ -54,5 +54,5 @@
     <string name="btnUpdateCalories">Update</string>
     <string name="savedSteps">savedSteps</string>
     <string name="savedCalories">savedCalories</string>
-    <string name="azureApiUrl">http://mybuddy.azurewebsites.net/api/Grocery?grocerykeyword=</string>
+    <string name="azureApiUrl">http://mybuddy.azurewebsites.net/api/</string>
 </resources>
