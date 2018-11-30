@@ -25,11 +25,13 @@ import android.support.v4.app.FragmentManager;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.acer.home.Model.DBImplementer;
 import com.example.acer.home.Model.DBRepository;
 import com.example.acer.home.Model.GroceryModel;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -45,9 +47,12 @@ import java.util.List;
  *
  */
 public class AddGrocery extends Fragment {
-     final String [] groceriesList = new String[]{"Banana", "Apple","Bread","Butter","Milk"};
+
      DatePickerDialog.OnDateSetListener setDateListener;
      private String TAG ="AddGrcoery";
+    String[] groceriesList = null ;
+    AutoCompleteTextView searchableTextView;
+    View instanceGroceryView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,9 +62,36 @@ public class AddGrocery extends Fragment {
         final Button btnSaveGroceryDetail = addGroceryView.findViewById(R.id.btnSave);
         final AutoCompleteTextView txtSearchBox = addGroceryView.findViewById(R.id.autoTxtSearchGrocery);
         final EditText txtAddQuantity = addGroceryView.findViewById(R.id.txtQuantity);
+        searchableTextView = txtSearchBox;
+        instanceGroceryView = addGroceryView;
+        TextWatcher fieldTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence inputText, int start, int before, int count) {
+                if (StartFilter()) {
+                    PopulateGroceryName(inputText);
+                     //groceriesList = new String[]{"Banana", "Apple", "Bread", "Butter", "Milk"};
+                   // ArrayAdapter <String> adapter = new ArrayAdapter<String>(addGroceryView.getContext(), R.layout.searchable_list_view,groceriesList);
+                    //txtSearchBox.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+            private boolean StartFilter() {
+                return txtSearchBox.getText().toString().trim().length() > 0;
+            }
+        };
+        txtSearchBox.addTextChangedListener(fieldTextWatcher);
         // URL Reference : https://stackoverflow.com/questions/2696846/from-autocomplete-textbox-to-database-search-and-display
-        ArrayAdapter <String> adapter = new ArrayAdapter<String>(addGroceryView.getContext(), R.layout.searchable_list_view,groceriesList);
-        txtSearchBox.setAdapter(adapter);
+
+
         //Calling Calendar class to display calendar
         CalendarControl.SetCalendarControl(addGroceryView,txtExpiryDate);
         btnSaveGroceryDetail.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +106,20 @@ public class AddGrocery extends Fragment {
         });
         return addGroceryView;
     }
-    public void PopulateGroceryName ()
+    public void PopulateGroceryName (CharSequence inputText)
     {
-        String apiURL =getString(R.string.azureApiUrl);
+        String apiURL =getString(R.string.azureApiUrl).concat("Grocery?grocerykeyword=" + inputText)  ;
 
-        JsonObjectRequest azureApiRequesr = new JsonObjectRequest(Request.Method.GET, apiURL, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest azureApiRequest = new JsonArrayRequest(Request.Method.GET, apiURL, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
-
+            public void onResponse(JSONArray response) {
+                 groceriesList =new String[response.length()];
+                for (int i =0; i < groceriesList.length; i++ )
+                {
+                    groceriesList[i] = response.optString(i);
+                }
+                ArrayAdapter <String> adapter = new ArrayAdapter<String>(instanceGroceryView.getContext(), R.layout.searchable_list_view,groceriesList);
+                searchableTextView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -89,6 +127,9 @@ public class AddGrocery extends Fragment {
 
             }
         });
+
+        SingletonRequestQueue.getInstance(getContext()).addToRequestQueue(azureApiRequest);
+
     }
 
 }
