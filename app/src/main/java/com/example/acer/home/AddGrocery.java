@@ -21,9 +21,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v4.app.FragmentManager;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.acer.home.Model.DBImplementer;
 import com.example.acer.home.Model.DBRepository;
 import com.example.acer.home.Model.GroceryModel;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -52,31 +60,8 @@ public class AddGrocery extends Fragment {
         // URL Reference : https://stackoverflow.com/questions/2696846/from-autocomplete-textbox-to-database-search-and-display
         ArrayAdapter <String> adapter = new ArrayAdapter<String>(addGroceryView.getContext(), R.layout.searchable_list_view,groceriesList);
         txtSearchBox.setAdapter(adapter);
-        // Event handler to open a calender dialog
-        txtExpiryDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int year  = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day   = calendar.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dateDialog = new DatePickerDialog(addGroceryView.getContext(), AlertDialog.THEME_HOLO_LIGHT
-                ,setDateListener , year, month, day);
-                dateDialog.show();
-            }
-        });
-        //Event to set the selected date to the edit Text control
-        setDateListener = new DatePickerDialog.OnDateSetListener()
-        {
-            @Override
-            public  void onDateSet (DatePicker view, int year, int month, int dayOfMonth)
-            {
-                month = month +1;
-                String date = dayOfMonth + "-" + month + "-" + year;
-                txtExpiryDate.setText(date);
-            }
-        };
+        //Calling Calendar class to display calendar
+        CalendarControl.SetCalendarControl(addGroceryView,txtExpiryDate);
         btnSaveGroceryDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +73,22 @@ public class AddGrocery extends Fragment {
             }
         });
         return addGroceryView;
+    }
+    public void PopulateGroceryName ()
+    {
+        String apiURL =getString(R.string.azureApiUrl);
+
+        JsonObjectRequest azureApiRequesr = new JsonObjectRequest(Request.Method.GET, apiURL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
     }
 
 }

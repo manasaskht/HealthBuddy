@@ -11,7 +11,7 @@ public class DBRepository {
     private DBImplementer dbImplementer;
     public DBRepository (Context context)
     {
-        dbImplementer = Room.databaseBuilder(context, DBImplementer.class,DB_NAME).allowMainThreadQueries().build();
+        dbImplementer = Room.databaseBuilder(context, DBImplementer.class,DB_NAME).allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
     }
     public void InsertGrocery (final GroceryModel addGrocery)
@@ -26,6 +26,10 @@ public class DBRepository {
     }
     public List<GroceryModel> ViewGroceries ()
     {
-return dbImplementer.groceryDao().fetchGroceries();
+        return dbImplementer.groceryDao().fetchGroceries();
+    }
+    public void UpdateGrocery (int RowId, int quantity,String expiryDate)
+    {
+        dbImplementer.groceryDao().updateSingleGrocery( RowId, quantity,expiryDate);
     }
 }

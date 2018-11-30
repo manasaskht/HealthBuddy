@@ -8,8 +8,10 @@ import java.util.Date;
 @Entity
 public class GroceryModel {
     @NonNull
-    @PrimaryKey
     public int groceryId;
+    @NonNull
+    @PrimaryKey (autoGenerate = true)
+    public int baseID;
     public String groceryName;
     public int quantity;
     public String expiryDate;

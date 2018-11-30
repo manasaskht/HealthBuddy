@@ -37,13 +37,10 @@ public class GroceriesFragment extends Fragment {
         View GroceriesView =  inflater.inflate(R.layout.fragment_groceries,container,false);
         groceryRecyclerView = (RecyclerView) GroceriesView.findViewById(R.id.recyclerVwGroceries);
         groceryRecyclerView.setPaddingRelative(2, 2, 2, 2);
-       // groceryList = new ArrayList<GroceryCard>();
-        //groceryList.add(new GroceryCard("Bread",1,"1 day"));
-       // groceryList.add(new GroceryCard("Butter",1,"2 days"));
+        //Initializing the DB object
         DBRepository groceryRepository =new DBRepository(getContext());
         listAddedGrocery = groceryRepository.ViewGroceries();
         constructRecyclerView();
-
         return GroceriesView;
     }
     public void constructRecyclerView ()
@@ -69,6 +66,7 @@ public class GroceriesFragment extends Fragment {
                     args.putString("GroceryName", listAddedGrocery.get(position).groceryName);
                     args.putString("expiryDate", listAddedGrocery.get(position).expiryDate);
                     args.putString("quantity", Integer.toString(listAddedGrocery.get(position).quantity));
+                    args.putString("ID", Integer.toString(listAddedGrocery.get(position).baseID));
                     editGrocery.setArguments(args);
                     //Reference URL: https://stackoverflow.com/questions/14970790/fragment-getarguments-returns-null
                     getFragmentManager().beginTransaction().replace(R.id.frame_container, editGrocery).commit();
