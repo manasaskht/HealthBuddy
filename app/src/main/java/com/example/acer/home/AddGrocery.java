@@ -109,6 +109,7 @@ public class AddGrocery extends Fragment {
     public void PopulateGroceryName (CharSequence inputText)
     {
         String apiURL =getString(R.string.azureApiUrl).concat("Grocery?grocerykeyword=" + inputText)  ;
+        try {
 
         JsonArrayRequest azureApiRequest = new JsonArrayRequest(Request.Method.GET, apiURL, null, new Response.Listener<JSONArray>() {
             @Override
@@ -125,11 +126,14 @@ public class AddGrocery extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-            }
-        });
+                }
+            });
+            SingletonRequestQueue.getInstance(getContext()).addToRequestQueue(azureApiRequest);
+        }
+        catch (Exception ex)
+        {
 
-        SingletonRequestQueue.getInstance(getContext()).addToRequestQueue(azureApiRequest);
-
+        }
     }
 
 }

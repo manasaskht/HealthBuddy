@@ -17,4 +17,6 @@ public interface GroceryDao {
     List<GroceryModel> fetchGroceries ();
 @Query("UPDATE GroceryModel SET quantity= :updatedQuantity,expiryDate= :updatedExpiryDate WHERE baseID = :rowID")
     void updateSingleGrocery (int rowID,int updatedQuantity,String updatedExpiryDate);
+@Query("Delete from GroceryModel where baseID = :rowID ")
+    void DeleteSingleGrocery(int rowID);
 }

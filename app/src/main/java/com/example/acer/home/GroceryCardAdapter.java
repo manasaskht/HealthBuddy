@@ -1,5 +1,6 @@
 package com.example.acer.home;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.acer.home.Model.GroceryModel;
@@ -66,6 +68,7 @@ public class GroceryCardAdapter extends RecyclerView.Adapter <GroceryCardAdapter
         protected TextView vQuantity;
         protected TextView vExpriryDate;
         protected ImageView vEditButton;
+        public LinearLayout viewFront;
 
         public GroceryViewHolder(View groceryView, final onCardItemClickListener listener) {
             super(groceryView);
@@ -73,6 +76,8 @@ public class GroceryCardAdapter extends RecyclerView.Adapter <GroceryCardAdapter
             vQuantity = groceryView.findViewById(R.id.txtQuantity);
             vExpriryDate = groceryView.findViewById(R.id.txtExpiryDate);
             vEditButton  = groceryView.findViewById(R.id.imgEdit);
+            viewFront = groceryView.findViewById(R.id.view_front);
+
             groceryView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -103,5 +108,10 @@ public class GroceryCardAdapter extends RecyclerView.Adapter <GroceryCardAdapter
         }
 
     }
+    public void removeItem(int position)
+    {
+        groceryList.remove(position);
 
+        notifyItemRemoved(position);
+    }
 }
