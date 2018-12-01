@@ -54,5 +54,6 @@ public class GroceryModel {
     {
         this.expiryDate= expiryDate;
     }
+    public int getBaseID() { return baseID;}
 
 }

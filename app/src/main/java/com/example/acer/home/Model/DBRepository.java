@@ -32,4 +32,8 @@ public class DBRepository {
     {
         dbImplementer.groceryDao().updateSingleGrocery( RowId, quantity,expiryDate);
     }
+    public void DeleteGrocery (int rowID)
+    {
+        dbImplementer.groceryDao().DeleteSingleGrocery(rowID);
+    }
 }
