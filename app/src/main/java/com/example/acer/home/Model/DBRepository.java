@@ -28,9 +28,9 @@ public class DBRepository {
     {
         return dbImplementer.groceryDao().fetchGroceries();
     }
-    public void UpdateGrocery (int RowId, int quantity,String expiryDate)
+    public void UpdateGrocery (int RowId, int quantity, String unit ,String expiryDate)
     {
-        dbImplementer.groceryDao().updateSingleGrocery( RowId, quantity,expiryDate);
+        dbImplementer.groceryDao().updateSingleGrocery( RowId, quantity,unit,expiryDate);
     }
     public void DeleteGrocery (int rowID)
     {
