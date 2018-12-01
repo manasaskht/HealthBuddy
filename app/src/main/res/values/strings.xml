@@ -55,4 +55,9 @@
     <string name="savedSteps">savedSteps</string>
     <string name="savedCalories">savedCalories</string>
     <string name="azureApiUrl">http://mybuddy.azurewebsites.net/api/</string>
+    
+    <string name="errorRetrievingRecipes">Error occurred while retrieving the recipe suggestions... Please try after sometime!!!</string>
+    <string name="preparation">Preparation:</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="sourceLink">Source:</string>
 </resources>
