@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/QuanitityHint"
+        android:inputType="number"
         android:id="@+id/txtQuantity"
         />
     <TextView
@@ -43,6 +44,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtExpiryDate"
         android:hint="@string/ExpiryDateHint"
+        android:focusable="false"
         />
     <Button
         android:layout_width="wrap_content"
