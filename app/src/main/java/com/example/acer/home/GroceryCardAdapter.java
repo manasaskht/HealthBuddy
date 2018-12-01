@@ -52,7 +52,7 @@ public class GroceryCardAdapter extends RecyclerView.Adapter <GroceryCardAdapter
     public void onBindViewHolder(@NonNull GroceryViewHolder groceryViewHolder, int position) {
         GroceryModel groceryCard = groceryList.get(position);
         groceryViewHolder.vExpriryDate.setText(groceryCard.expiryDate);
-        groceryViewHolder.vQuantity.setText(String.valueOf(groceryCard.quantity));
+        groceryViewHolder.vQuantity.setText(String.valueOf(groceryCard.quantity) + " "+ groceryCard.unit);
         groceryViewHolder.vGroceryName.setText(groceryCard.groceryName);
     }
 

@@ -76,6 +76,7 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
                     args.putString("expiryDate", listAddedGrocery.get(position).expiryDate);
                     args.putString("quantity", Integer.toString(listAddedGrocery.get(position).quantity));
                     args.putString("ID", Integer.toString(listAddedGrocery.get(position).baseID));
+                    args.putString("unit",listAddedGrocery.get(position).unit);
                     editGrocery.setArguments(args);
                     //Reference URL: https://stackoverflow.com/questions/14970790/fragment-getarguments-returns-null
                     getFragmentManager().beginTransaction().replace(R.id.frame_container, editGrocery).commit();

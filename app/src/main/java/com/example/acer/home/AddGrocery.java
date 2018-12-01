@@ -21,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v4.app.FragmentManager;
+import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -62,6 +63,11 @@ public class AddGrocery extends Fragment {
         final Button btnSaveGroceryDetail = addGroceryView.findViewById(R.id.btnSave);
         final AutoCompleteTextView txtSearchBox = addGroceryView.findViewById(R.id.autoTxtSearchGrocery);
         final EditText txtAddQuantity = addGroceryView.findViewById(R.id.txtQuantity);
+        final Spinner unitSpinner = (Spinner) addGroceryView.findViewById(R.id.units_Spinner);
+        String [] arrUnit = getContext().getResources().getStringArray(R.array.arrUnit);
+        ArrayAdapter <String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item,arrUnit);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        unitSpinner.setAdapter(spinnerAdapter);
         searchableTextView = txtSearchBox;
         instanceGroceryView = addGroceryView;
         TextWatcher fieldTextWatcher = new TextWatcher() {
@@ -99,7 +105,7 @@ public class AddGrocery extends Fragment {
             public void onClick(View v) {
                 DBRepository groceryRepository =new DBRepository(getContext());
                 List<GroceryModel> groceryCount= groceryRepository.ViewGroceries();
-                GroceryModel addGroceryModel = new GroceryModel(groceryCount.size() + 1,txtSearchBox.getText().toString(),Integer.parseInt(txtAddQuantity.getText().toString()),txtExpiryDate.getText().toString());
+                GroceryModel addGroceryModel = new GroceryModel(groceryCount.size() + 1,txtSearchBox.getText().toString(),Integer.parseInt(txtAddQuantity.getText().toString()), unitSpinner.getSelectedItem().toString(),txtExpiryDate.getText().toString());
                 groceryRepository.InsertGrocery(addGroceryModel);
             getFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
             }

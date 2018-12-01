@@ -1,4 +1,4 @@
-<resources>
+<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MyBuddy</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -56,6 +56,24 @@
     <string name="savedCalories">savedCalories</string>
     <string name="azureApiUrl">http://mybuddy.azurewebsites.net/api/</string>
     
+    <string name="unit">Unit</string>
+    <string name="name">Product  :</string>
+    <string name="quanity">Quantity :</string>
+    <string name="expiryDate">Exp. Date :</string>
+    <string-array name="arrUnit">
+        <item>
+            kg
+        </item>
+        <item>
+            lbs
+        </item>
+        <item>
+            ltr
+        </item>
+        <item>
+            ml
+        </item>
+    </string-array>
     <string name="errorRetrievingRecipes">Error occurred while retrieving the recipe suggestions... Please try after sometime!!!</string>
     <string name="preparation">Preparation:</string>
     <string name="ingredients">Ingredients:</string>

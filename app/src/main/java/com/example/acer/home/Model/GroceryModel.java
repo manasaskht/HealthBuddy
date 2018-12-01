@@ -14,13 +14,15 @@ public class GroceryModel {
     public int baseID;
     public String groceryName;
     public int quantity;
+    public String unit;
     public String expiryDate;
-    public GroceryModel (int groceryId, String groceryName, int quantity, String expiryDate)
+    public GroceryModel (int groceryId, String groceryName, int quantity, String unit, String expiryDate)
     {
         this.groceryId= groceryId;
         this.groceryName = groceryName;
         this.expiryDate=expiryDate;
         this.quantity = quantity;
+        this.unit = unit;
     }
     public int getGroceryId ()
     {
@@ -46,6 +48,8 @@ public class GroceryModel {
     {
         this.quantity= quantity;
     }
+    public String getUnit () { return unit;}
+    public void setUnit(String unit) {this.unit = unit;}
     public String getExpiryDate ()
     {
         return expiryDate;
