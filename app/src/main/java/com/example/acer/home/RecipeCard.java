@@ -7,11 +7,13 @@ package com.example.acer.home;
  * @since   20 November, 2018
  */
 public class RecipeCard {
+    int recipeID;
     String recipeName;
-    int recipeThumbnail;
+    String recipeImageURL;
 
-    RecipeCard(String recipeName, int recipeThumbnail){
+    RecipeCard(int recipeID, String recipeName, String recipeImageURL){
+        this.recipeID = recipeID;
         this.recipeName = recipeName;
-        this.recipeThumbnail = recipeThumbnail;
+        this.recipeImageURL = recipeImageURL;
     }
 }
