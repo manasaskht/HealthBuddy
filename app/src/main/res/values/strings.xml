@@ -55,7 +55,7 @@
     <string name="savedSteps">savedSteps</string>
     <string name="savedCalories">savedCalories</string>
     <string name="azureApiUrl">http://mybuddy.azurewebsites.net/api/</string>
-    
+    <string name="lblBack">Cancel</string>
     <string name="unit">Unit</string>
     <string name="name">Product  :</string>
     <string name="quanity">Quantity :</string>

@@ -28,35 +28,42 @@ public class EditGrocery extends Fragment {
                              Bundle savedInstanceState) {
         View editGroceryView = inflater.inflate(R.layout.fragment_edit_grocery, container, false);
 
-            final EditText txtEditedExpiryDate =(EditText) editGroceryView.findViewById(R.id.txtSavedExpiryDate);
-            final EditText txtEditedGroceryName = (EditText) editGroceryView.findViewById(R.id.txtSavedGroceryName);
-            final  EditText txtEditedQuantity = editGroceryView.findViewById(R.id.txtSavedQuantity);
-            final Button btnSaveChanges = editGroceryView.findViewById(R.id.btnSaveChanges);
+        final EditText txtEditedExpiryDate =(EditText) editGroceryView.findViewById(R.id.txtSavedExpiryDate);
+        final EditText txtEditedGroceryName = (EditText) editGroceryView.findViewById(R.id.txtSavedGroceryName);
+        final  EditText txtEditedQuantity = editGroceryView.findViewById(R.id.txtSavedQuantity);
+        final Button btnSaveChanges = editGroceryView.findViewById(R.id.btnSaveChanges);
+        Button btnCancel = editGroceryView.findViewById(R.id.btnCancel);
         final Spinner spinnerEditedUnit = editGroceryView.findViewById(R.id.unitedited_spinner);
         String [] arrUnits = getContext().getResources().getStringArray(R.array.arrUnit);
         ArrayAdapter <String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item,arrUnits);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerEditedUnit.setAdapter(spinnerAdapter);
-            final Bundle bundle = getArguments();
-           txtEditedGroceryName.setText(String.valueOf(bundle.getString("GroceryName")));
-           txtEditedExpiryDate.setText(String.valueOf(bundle.getString("expiryDate")));
-           txtEditedQuantity.setText(String.valueOf(bundle.getString("quantity")));
+        final Bundle bundle = getArguments();
+        txtEditedGroceryName.setText(String.valueOf(bundle.getString("GroceryName")));
+        txtEditedExpiryDate.setText(String.valueOf(bundle.getString("expiryDate")));
+        txtEditedQuantity.setText(String.valueOf(bundle.getString("quantity")));
         String selectedUnit = String.valueOf(bundle.getString("unit"));
         spinnerEditedUnit.setSelection(spinnerAdapter.getPosition(selectedUnit));
-           final int selectedGroceryRowID = Integer.parseInt(bundle.getString("ID"));
-           CalendarControl.SetCalendarControl(editGroceryView,txtEditedExpiryDate);
-           //Save Changes button click event
-            btnSaveChanges.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DBRepository groceryRepository =new DBRepository(getContext());
+        final int selectedGroceryRowID = Integer.parseInt(bundle.getString("ID"));
+        CalendarControl.SetCalendarControl(editGroceryView,txtEditedExpiryDate);
+        //Save Changes button click event
+        btnSaveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBRepository groceryRepository =new DBRepository(getContext());
                 groceryRepository.UpdateGrocery(selectedGroceryRowID,Integer.parseInt(txtEditedQuantity.getText().toString()),spinnerEditedUnit.getSelectedItem().toString(),txtEditedExpiryDate.getText().toString());
-                    getFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
-                }
-            });
-
+                getFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
+            }
+        });
+        //Cancel button event to move to card view screen (Home Screen)
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
+            }
+        });
         // Inflate the layout for this fragment
-       return editGroceryView;
+        return editGroceryView;
     }
 
 
