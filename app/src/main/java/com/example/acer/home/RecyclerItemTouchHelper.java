@@ -58,10 +58,10 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     }
     @Override
     public void onChildDraw (Canvas canvas,RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder, float dX, float dY,
-            int actionState, boolean isCurrentlyActive)
+                             int actionState, boolean isCurrentlyActive)
     {
-     final View viewFront = ((GroceryCardAdapter.GroceryViewHolder) viewHolder).viewFront;
-     getDefaultUIUtil().onDraw(canvas,recyclerView,viewFront,dX,dY,actionState,isCurrentlyActive);
+        final View viewFront = ((GroceryCardAdapter.GroceryViewHolder) viewHolder).viewFront;
+        getDefaultUIUtil().onDraw(canvas,recyclerView,viewFront,dX,dY,actionState,isCurrentlyActive);
     }
 
     @Override

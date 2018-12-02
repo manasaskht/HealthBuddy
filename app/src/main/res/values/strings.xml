@@ -1,4 +1,9 @@
-<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
+<!--
+Author     : Sarmad Noor, Abinaya, Manasa, Jesse, Seth
+Updated on : December 2,2018
+Desc       : Values of all the labels and API
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">MyBuddy</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -59,7 +64,7 @@
     <string name="unit">Unit</string>
     <string name="name">Product  :</string>
     <string name="quanity">Quantity :</string>
-    <string name="expiryDate">Exp. Date :</string>
+    <string name="expiryDate">Expires In :</string>
     <string-array name="arrUnit">
         <item>
             kg

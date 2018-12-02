@@ -29,7 +29,12 @@ import android.widget.Toast;
 
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * This class contain the code for side navigation bar
+ * @author  Manasa, Sarmad, Jesse, Abi, Seth
+ * @version 4.0
+ * @updated   2 December, 2018
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
     CurrentFragmentEnum currentFragment;
@@ -97,10 +102,10 @@ public class MainActivity extends AppCompatActivity
         }
         else {
             //Reference URL: https://stackoverflow.com/questions/10692755/how-do-i-hide-a-menu-item-in-the-actionbar
-           for (int i=0; i < menu.size();i++)
-           {
-               menu.getItem(i).setVisible(false);
-           }
+            for (int i=0; i < menu.size();i++)
+            {
+                menu.getItem(i).setVisible(false);
+            }
 
             //return false;
         }

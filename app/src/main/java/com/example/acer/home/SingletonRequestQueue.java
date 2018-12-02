@@ -12,35 +12,35 @@ import com.android.volley.toolbox.Volley;
  * Referred : Lab Material
  */
 public class SingletonRequestQueue {
-private static SingletonRequestQueue mInstance;
-private RequestQueue mRequestQueue;
-private static Context mCtx;
+    private static SingletonRequestQueue mInstance;
+    private RequestQueue mRequestQueue;
+    private static Context mCtx;
 
     private SingletonRequestQueue (Context context)
     {
         mCtx = context.getApplicationContext();
         mRequestQueue= getRequestQueue();
     }
-public static synchronized SingletonRequestQueue getInstance (Context context)
-{
-    if (mInstance ==null)
+    public static synchronized SingletonRequestQueue getInstance (Context context)
     {
-        mInstance = new SingletonRequestQueue(context.getApplicationContext());
+        if (mInstance ==null)
+        {
+            mInstance = new SingletonRequestQueue(context.getApplicationContext());
+        }
+        return mInstance;
     }
-    return mInstance;
-}
 
-public RequestQueue getRequestQueue ()
-{
-    if (mRequestQueue == null)
+    public RequestQueue getRequestQueue ()
     {
-        mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+        if (mRequestQueue == null)
+        {
+            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+        }
+        return mRequestQueue;
     }
-    return mRequestQueue;
-}
-public <T> void addToRequestQueue (Request <T> request)
-{
-    getRequestQueue().add(request);
-}
+    public <T> void addToRequestQueue (Request <T> request)
+    {
+        getRequestQueue().add(request);
+    }
 
 }
