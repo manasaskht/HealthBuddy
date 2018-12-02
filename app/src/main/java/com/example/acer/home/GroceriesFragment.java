@@ -1,5 +1,6 @@
 package com.example.acer.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -57,11 +58,23 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         btnFloatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.frame_container,new AddGrocery()).commit();
+                //https://stackoverflow.com/questions/50090135/pass-data-fragment-to-fragment-in-the-same-activity
+                Intent addGroceryAct = new Intent(getContext(), AddGroceryActivity.class);
+                getContext().startActivity(addGroceryAct);
             }
         });
         return GroceriesView;
     }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        DBRepository groceryRepository =new DBRepository(getContext());
+        listAddedGrocery = groceryRepository.ViewGroceries();
+        constructRecyclerView();
+
+    }
+    // Method to recycler view layout for Grocery
     public void constructRecyclerView ()
     {
         groceryCardAdapter = new GroceryCardAdapter(this.getContext(),listAddedGrocery);
@@ -79,17 +92,15 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
 
             @Override
             public void onEditItemClick(int position) {
-                Fragment editGrocery = new EditGrocery();
-                Bundle args = new Bundle();
                 try {
-                    args.putString("GroceryName", listAddedGrocery.get(position).groceryName);
-                    args.putString("expiryDate", listAddedGrocery.get(position).expiryDate);
-                    args.putString("quantity", Integer.toString(listAddedGrocery.get(position).quantity));
-                    args.putString("ID", Integer.toString(listAddedGrocery.get(position).baseID));
-                    args.putString("unit",listAddedGrocery.get(position).unit);
-                    editGrocery.setArguments(args);
-                    //Reference URL: https://stackoverflow.com/questions/14970790/fragment-getarguments-returns-null
-                    getFragmentManager().beginTransaction().replace(R.id.frame_container, editGrocery).commit();
+                    // Sending the data to the Edit Grocery detail screen
+                    Intent editGrocery = new Intent(getContext(), EditGroceryActivity.class);
+                    editGrocery.putExtra("GroceryName", listAddedGrocery.get(position).groceryName);
+                    editGrocery.putExtra("expiryDate", listAddedGrocery.get(position).expiryDate);
+                    editGrocery.putExtra("quantity", Integer.toString(listAddedGrocery.get(position).quantity));
+                    editGrocery.putExtra("ID", Integer.toString(listAddedGrocery.get(position).baseID));
+                    editGrocery.putExtra("unit",listAddedGrocery.get(position).unit);
+                    getContext().startActivity(editGrocery);
                 }
                 catch (Exception ex)
                 {

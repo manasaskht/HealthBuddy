@@ -23,7 +23,7 @@ import org.json.JSONObject;
  * @version 1.0
  * @since   30 November, 2018
  */
- 
+
 public class RecipeDetailActivity extends AppCompatActivity {
 
     TextView txtRecipeName;

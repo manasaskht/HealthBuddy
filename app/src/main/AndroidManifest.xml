@@ -28,6 +28,8 @@
             android:name=".RecipeDetailActivity"
             android:label="ActivityRecipeDetail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AddGroceryActivity" />
+        <activity android:name=".EditGroceryActivity"></activity>
     </application>
 
 </manifest>
