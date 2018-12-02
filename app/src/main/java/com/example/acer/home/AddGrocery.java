@@ -64,6 +64,7 @@ public class AddGrocery extends Fragment {
         final AutoCompleteTextView txtSearchBox = addGroceryView.findViewById(R.id.autoTxtSearchGrocery);
         final EditText txtAddQuantity = addGroceryView.findViewById(R.id.txtQuantity);
         final Spinner unitSpinner = (Spinner) addGroceryView.findViewById(R.id.units_Spinner);
+        Button btnCancel = addGroceryView.findViewById(R.id.btnBack);
         String [] arrUnit = getContext().getResources().getStringArray(R.array.arrUnit);
         ArrayAdapter <String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item,arrUnit);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -108,6 +109,14 @@ public class AddGrocery extends Fragment {
                 GroceryModel addGroceryModel = new GroceryModel(groceryCount.size() + 1,txtSearchBox.getText().toString(),Integer.parseInt(txtAddQuantity.getText().toString()), unitSpinner.getSelectedItem().toString(),txtExpiryDate.getText().toString());
                 groceryRepository.InsertGrocery(addGroceryModel);
             getFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
+            }
+        });
+
+        // Cancel button event Listener
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, new GroceriesFragment()).commit();
             }
         });
         return addGroceryView;

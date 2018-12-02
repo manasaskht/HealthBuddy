@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.acer.home.Model.DBRepository;
@@ -42,6 +44,7 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         View GroceriesView =  inflater.inflate(R.layout.fragment_groceries,container,false);
         groceryScreenView = GroceriesView;
         groceryRecyclerView = (RecyclerView) GroceriesView.findViewById(R.id.recyclerVwGroceries);
+        FloatingActionButton btnFloatAdd = GroceriesView.findViewById(R.id.btnFloatAdd);
         groceryRecyclerView.setPaddingRelative(2, 2, 2, 2);
         //Initializing the DB object
         DBRepository groceryRepository =new DBRepository(getContext());
@@ -50,6 +53,13 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         //Delete functionality
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0,ItemTouchHelper.LEFT, (RecyclerItemTouchHelper.RecyclerItemTouchHelperListener) this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(groceryRecyclerView);
+
+        btnFloatAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.frame_container,new AddGrocery()).commit();
+            }
+        });
         return GroceriesView;
     }
     public void constructRecyclerView ()
