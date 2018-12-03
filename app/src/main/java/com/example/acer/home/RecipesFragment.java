@@ -9,6 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,7 +35,7 @@ public class RecipesFragment extends Fragment {
         return fragment;
     }
     private RecipeCardAdapter adapter;
-    private RecyclerView recyclerView;
+    private RecyclerView recipeRecyclerView;
     private ArrayList<RecipeCard> recipeList;
 
     @Override
@@ -37,18 +47,44 @@ public class RecipesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Reference URL : https://stackoverflow.com/questions/30093111/findviewbyid-not-working-in-fragment
         View recipeView = inflater.inflate(R.layout.fragment_recipes, container,false);
-        recyclerView = recipeView.findViewById(R.id.recyclerVwRecipes);
+        recipeRecyclerView = recipeView.findViewById(R.id.recyclerVwRecipes);
 
-
-        recipeList = new ArrayList<RecipeCard>();
-        recipeList.add(new RecipeCard("Sandwich", R.drawable.sandwich));
-        recipeList.add(new RecipeCard("Salad", R.drawable.salad));
-        recipeList.add(new RecipeCard("Pizza", R.drawable.pizza));
+        recipeList = GetRecipes();
         adapter = new RecipeCardAdapter(this.getContext(), recipeList);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
         return recipeView;
+    }
+
+    private ArrayList<RecipeCard> GetRecipes() {
+        String url = getResources().getString(R.string.azureApiUrl) + "Recipe";
+        final ArrayList<RecipeCard> recipes = new ArrayList<>();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        int responseSize = response.length();
+                        for (int i = 0; i < responseSize; i++) {
+                            try {
+                                JSONObject recipe = response.getJSONObject(i);
+                                RecipeCard recipeCard = new RecipeCard(recipe.getInt("RecipeID"),recipe.getString("RecipeName"), recipe.getString("RecipeImageURL"));
+                                recipes.add(recipeCard);
+                            } catch (JSONException e) {
+                                Toast.makeText(getContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT);
+                                e.printStackTrace();
+                            }
+                            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+                            recipeRecyclerView.setLayoutManager(layoutManager);
+                            recipeRecyclerView.setAdapter(adapter);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        SingletonRequestQueue.getInstance(getContext()).addToRequestQueue(request);
+        return recipes;
     }
 }

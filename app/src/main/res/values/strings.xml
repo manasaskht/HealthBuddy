@@ -1,4 +1,9 @@
-<resources>
+<!--
+Author     : Sarmad Noor, Abinaya, Manasa, Jesse, Seth
+Updated on : December 2,2018
+Desc       : Values of all the labels and API
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">MyBuddy</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -41,16 +46,41 @@
     <string name="nav_call">Call Customer Care</string>
     <string name="nav_home">Home</string>
     <string name="nav_logout">Logout</string>
-    <string name="lblGroceryName">Please enter Grocery</string>
+    <string name="lblGroceryName">Grocery Name</string>
     <string name="GroceryTextHint">Grocery Name</string>
-    <string name="lblQuantity">Please enter Quantity</string>
+    <string name="lblQuantity">Quantity</string>
     <string name="QuanitityHint">Quantity</string>
-    <string name="lblExpiryDate">Please enter Expiry Date</string>
+    <string name="lblExpiryDate">Expiry Date</string>
     <string name="btnLblSave">Save</string>
+    <string name="btnLblEditSave">Save Changes</string>
     <string name="ExpiryDateHint">Select the grocery expiry date</string>
 
     <string name="etUpdateCalories">Enter Target Calories:</string>
     <string name="btnUpdateCalories">Update</string>
     <string name="savedSteps">savedSteps</string>
     <string name="savedCalories">savedCalories</string>
+    <string name="azureApiUrl">http://mybuddy.azurewebsites.net/api/</string>
+    <string name="lblBack">Cancel</string>
+    <string name="unit">Unit</string>
+    <string name="name">Product  :</string>
+    <string name="quanity">Quantity :</string>
+    <string name="expiryDate">Expires In :</string>
+    <string-array name="arrUnit">
+        <item>
+            kg
+        </item>
+        <item>
+            lbs
+        </item>
+        <item>
+            ltr
+        </item>
+        <item>
+            ml
+        </item>
+    </string-array>
+    <string name="errorRetrievingRecipes">Error occurred while retrieving the recipe suggestions... Please try after sometime!!!</string>
+    <string name="preparation">Preparation:</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="sourceLink">Source:</string>
 </resources>

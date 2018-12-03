@@ -32,7 +32,12 @@ import android.widget.Toast;
 
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * This class contain the code for side navigation bar
+ * @author  Manasa, Sarmad, Jesse, Abi, Seth
+ * @version 4.0
+ * @updated   2 December, 2018
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
@@ -122,10 +127,10 @@ public class MainActivity extends AppCompatActivity
         }
         else {
             //Reference URL: https://stackoverflow.com/questions/10692755/how-do-i-hide-a-menu-item-in-the-actionbar
-           for (int i=0; i < menu.size();i++)
-           {
-               menu.getItem(i).setVisible(false);
-           }
+            for (int i=0; i < menu.size();i++)
+            {
+                menu.getItem(i).setVisible(false);
+            }
 
             //return false;
         }
@@ -137,13 +142,6 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.btnAddGrocery) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new AddGrocery()).commit();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
