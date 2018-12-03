@@ -36,4 +36,8 @@ public class DBRepository {
     {
         dbImplementer.groceryDao().DeleteSingleGrocery(rowID);
     }
+    public List<String> GetUniqueGroceryItem ()
+    {
+       return dbImplementer.groceryDao().fetchDistinctGroceryName();
+    }
 }

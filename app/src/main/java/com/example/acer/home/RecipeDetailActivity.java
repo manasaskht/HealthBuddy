@@ -53,7 +53,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     private RecipeDetail GetRecipeDetail(int recipeID) {
-        String url = getResources().getString(R.string.azureApiUrl) + "RecipeDetail?recipeID=" + recipeID;
+        String url = getResources().getString(R.string.azureApiUrl) + "Recipe?recipeID=" + recipeID;
         final RecipeDetail recipeDetail = new RecipeDetail();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>()
         {
