@@ -8,10 +8,6 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-   <android.support.design.widget.BottomNavigationView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-
-   </android.support.design.widget.BottomNavigationView>
+   z
 
 </android.support.constraint.ConstraintLayout>

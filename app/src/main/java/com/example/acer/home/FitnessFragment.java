@@ -27,6 +27,16 @@ import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class FitnessFragment extends Fragment {
 
+    public static FitnessFragment newInstance() {
+        FitnessFragment fragment = new FitnessFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     private TextView tvSteps, tvKilometers;
     private PieChart chart;
     private EditText etCalories;
@@ -37,6 +47,7 @@ public class FitnessFragment extends Fragment {
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_fitness, container, false);

@@ -11,12 +11,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_marginTop="10dp"
     android:weightSum="3">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/txtGroceryName"
         android:layout_weight="1"
+        android:gravity="center"
+        android:layout_gravity="left"
         android:textSize="20dp"
         android:textStyle="bold"
         />
@@ -25,6 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtQuantity"
         android:layout_weight="1"
+        android:gravity="center"
         android:textSize="20dp"
         android:textStyle="bold"/>
     <TextView
@@ -32,7 +36,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtExpiryDate"
         android:layout_weight="1"
-        android:layout_gravity="right"
+        android:gravity="center"
         android:textSize="20dp"
         android:textStyle="bold"/>
 </LinearLayout>

@@ -11,9 +11,12 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -32,12 +35,42 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
+
     CurrentFragmentEnum currentFragment;
 
     private SensorManager sensorManager;
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected( MenuItem item) {
+
+            Fragment selectedFragment = null;
+
+            switch (item.getItemId()) {
+                case R.id.groceries:
+                    selectedFragment = GroceriesFragment.newInstance();
+                    break;
+                case R.id.recipes:
+                    selectedFragment = RecipesFragment.newInstance();
+                    break;
+                case R.id.Activity:
+                    selectedFragment = FitnessFragment.newInstance();
+                    break;
+            }
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_container, selectedFragment);
+            transaction.commit();
+
+            return true;
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,31 +82,23 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        try {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setItemIconTintList(null);
-            navigationView.setNavigationItemSelectedListener(this);
-            if (savedInstanceState == null) {
-                // Set the grocery fragment as default screen
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new GroceriesFragment()).commit();
-                currentFragment=CurrentFragmentEnum.Groceries;
-                //select the grocery navigation menu by default
-                //navigationView.setCheckedItem(R.id.nav_view);
-            }
-        }
-        catch (Exception ex)
-        {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        }
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
 
     @Override

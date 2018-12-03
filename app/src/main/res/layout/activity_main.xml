@@ -18,9 +18,13 @@ Reference URL : https://developer.android.com/training/implementing-navigation/n
 
     <!-- Frame layout to add navigation screen Added by Sarmad-->
     <FrameLayout
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frame_container"/>
+        android:layout_above="@+id/navigation"
+        android:animateLayoutChanges="true">
+
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -30,6 +34,8 @@ Reference URL : https://developer.android.com/training/implementing-navigation/n
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
+
+
 
 
 </android.support.v4.widget.DrawerLayout>

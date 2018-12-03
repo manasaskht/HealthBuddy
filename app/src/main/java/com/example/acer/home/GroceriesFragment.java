@@ -21,6 +21,11 @@ import java.util.ArrayList;
  */
 public class GroceriesFragment extends Fragment {
 
+    public static GroceriesFragment newInstance() {
+        GroceriesFragment fragment = new GroceriesFragment();
+        return fragment;
+    }
+
     RecyclerView groceryRecyclerView;
     ArrayList <GroceryCard> groceryList;
     GroceryCardAdapter groceryCardAdapter;
@@ -28,6 +33,7 @@ public class GroceriesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View GroceriesView =  inflater.inflate(R.layout.fragment_groceries,container,false);
         groceryRecyclerView = (RecyclerView) GroceriesView.findViewById(R.id.recyclerVwGroceries);
         groceryRecyclerView.setPaddingRelative(2, 2, 2, 2);
