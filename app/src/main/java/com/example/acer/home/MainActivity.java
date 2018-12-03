@@ -85,6 +85,12 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //make initial screen groceries
+        Fragment selectedFragment = GroceriesFragment.newInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, selectedFragment);
+        transaction.commit();
+
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
