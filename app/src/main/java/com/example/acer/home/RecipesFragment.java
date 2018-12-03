@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.acer.home.Model.DBImplementer;
+import com.example.acer.home.Model.DBRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is the main class for the recipe view
@@ -56,34 +61,41 @@ public class RecipesFragment extends Fragment {
     }
 
     private ArrayList<RecipeCard> GetRecipes() {
-        String url = getResources().getString(R.string.azureApiUrl) + "Recipe";
-        final ArrayList<RecipeCard> recipes = new ArrayList<>();
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        int responseSize = response.length();
-                        for (int i = 0; i < responseSize; i++) {
-                            try {
-                                JSONObject recipe = response.getJSONObject(i);
-                                RecipeCard recipeCard = new RecipeCard(recipe.getInt("RecipeID"),recipe.getString("RecipeName"), recipe.getString("RecipeImageURL"));
-                                recipes.add(recipeCard);
-                            } catch (JSONException e) {
-                                Toast.makeText(getContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT);
-                                e.printStackTrace();
-                            }
-                            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-                            recipeRecyclerView.setLayoutManager(layoutManager);
-                            recipeRecyclerView.setAdapter(adapter);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+        DBRepository dbImplementer= new DBRepository(getContext());
 
-                    }
-                });
+        List<String> uniqueGroceryList =dbImplementer.GetUniqueGroceryItem();
+        String url = getResources().getString(R.string.azureApiUrl) + "Recipe?GroceryList=" + TextUtils.join(",",uniqueGroceryList);
+        final ArrayList<RecipeCard> recipes = new ArrayList<>();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            try{
+                boolean matchFound = response.getBoolean("matchFoundWithGroceries");
+                final JSONArray suggestedRecipes = response.getJSONArray("suggestedRecipes");
+                int responseSize = suggestedRecipes.length();
+                for (int i = 0; i < responseSize; i++)
+                {
+                    JSONObject recipe = suggestedRecipes.getJSONObject(i);
+                    RecipeCard recipeCard = new RecipeCard(recipe.getInt("RecipeID"), recipe.getString("RecipeName"), recipe.getString("RecipeImageURL"));
+                    recipes.add(recipeCard);
+                }
+            }
+            catch(Exception ex)
+            {
+                Toast.makeText(getContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT);
+                ex.printStackTrace();
+            }
+                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+                recipeRecyclerView.setLayoutManager(layoutManager);
+                recipeRecyclerView.setAdapter(adapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
         SingletonRequestQueue.getInstance(getContext()).addToRequestQueue(request);
         return recipes;
     }

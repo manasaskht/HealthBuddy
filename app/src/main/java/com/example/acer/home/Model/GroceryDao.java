@@ -13,10 +13,13 @@ import java.util.List;
 public interface GroceryDao {
 @Insert
     void insertSingleGrocery (GroceryModel groceryModel);
-@Query("SELECT * FROM GroceryModel")
+@Query("SELECT * FROM GroceryModel order by expiryDate asc")
     List<GroceryModel> fetchGroceries ();
 @Query("UPDATE GroceryModel SET quantity= :updatedQuantity,unit= :updatedUnit, expiryDate= :updatedExpiryDate WHERE baseID = :rowID")
     void updateSingleGrocery (int rowID,int updatedQuantity,String updatedUnit,String updatedExpiryDate);
 @Query("Delete from GroceryModel where baseID = :rowID ")
     void DeleteSingleGrocery(int rowID);
+@Query("Select  distinct groceryName from GroceryModel")
+    List<String> fetchDistinctGroceryName();
+
 }

@@ -178,36 +178,6 @@ public class MainActivity extends AppCompatActivity
                     startActivity(dialIntent);
                     break;
 
-                case R.id.logout:
-                    new AlertDialog.Builder(this)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle("Logout Activity")
-                            .setMessage("Are you sure you want to Logout?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(MainActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-
-                                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                    finish();
-
-                                }
-
-                            })
-                            .setNegativeButton("No", null)
-                            .show();
-                    break;
-
-                case  R.id.Settings:
-                    i = new Intent(this, SettingsActivity.class);
-                    startActivity(i);
-                    break;
-
-                case  R.id.myaccount:
-                    i = new Intent(this, MyAccountActivity.class);
-                    startActivity(i);
-                    break;
-
                 case R.id.recipes:
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new RecipesFragment()).commit();
                     invalidateOptionsMenu();// now onCreateOptionsMenu(...) is called again
