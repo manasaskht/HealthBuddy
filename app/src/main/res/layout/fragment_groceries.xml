@@ -7,12 +7,15 @@ Date     : November 1, 2018
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize">
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_marginBottom="70dp"
+
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerVwGroceries"
         android:layout_width="match_parent"
-        android:layout_height="387dp"
+        android:layout_height="match_parent"
 
         ></android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
@@ -21,6 +24,5 @@ Date     : November 1, 2018
         android:src="@drawable/add_grocery_icon"
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="70dp"
         android:id="@+id/btnFloatAdd"/>
 </FrameLayout>
