@@ -10,9 +10,9 @@ Date     : November 1, 2018
     android:layout_marginTop="?attr/actionBarSize">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recyclerVwGroceries"
+        android:layout_width="match_parent"
+        android:layout_height="387dp"
 
         ></android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
