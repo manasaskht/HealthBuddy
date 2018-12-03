@@ -55,16 +55,20 @@ public class MainActivity extends AppCompatActivity
         public boolean onNavigationItemSelected( MenuItem item) {
 
             Fragment selectedFragment = null;
-
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            
             switch (item.getItemId()) {
                 case R.id.groceries:
                     selectedFragment = GroceriesFragment.newInstance();
+                    navigationView.setCheckedItem(R.id.groceries);
                     break;
                 case R.id.recipes:
                     selectedFragment = RecipesFragment.newInstance();
+                    navigationView.setCheckedItem(R.id.recipes);
                     break;
                 case R.id.Activity:
                     selectedFragment = FitnessFragment.newInstance();
+                    navigationView.setCheckedItem(R.id.Activity);
                     break;
             }
 
@@ -154,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         try {
             // Handle navigation view item clicks here.
             Intent i;
-
+            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             switch(item.getItemId())
             {
                 case  R.id.help :
@@ -202,18 +206,24 @@ public class MainActivity extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new RecipesFragment()).commit();
                     invalidateOptionsMenu();// now onCreateOptionsMenu(...) is called again
                     currentFragment = CurrentFragmentEnum.Recipes;
+                    navigation.setSelectedItemId(R.id.recipes);
+
                     break;
 
                 case R.id.groceries :
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new GroceriesFragment()).commit();
                     invalidateOptionsMenu();// now onCreateOptionsMenu(...) is called again
                     currentFragment = CurrentFragmentEnum.Groceries;
+                    navigation.setSelectedItemId(R.id.groceries);
+
                     break;
 
                 case R.id.Activity :
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new FitnessFragment()).commit();
                     invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
                     currentFragment = CurrentFragmentEnum.Activity;
+                    navigation.setSelectedItemId(R.id.Activity);
+
                     break;
 
             }
