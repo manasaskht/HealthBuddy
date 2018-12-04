@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MyBuddy is grocery remainder application which helps to store foods and notify expiry dates.It also supports pedometer and provides simple recepies"
+                android:text="MyBuddy is a grocery remainder application which helps to store foods and notify expiry dates. It also supports the phone's pedometer and provides simple recepies"
 android:textSize="20dp"
 
             />
@@ -50,13 +50,13 @@ android:textSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/button_selectorcolor"
-        android:text="I'm not receiving notifications for food expiry"
+        android:text="I'm not receiving notifications for food expiry/I don't like the notifications I am receiving"
         android:textStyle="bold"
         android:textSize="20dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Check if you have allowed MyBuddy app to send you notifications in the settings of your phone"
+        android:text="Check if you have allowed the MyBuddy app to send you notifications in the settings of your phone"
         android:textSize="20dp"/>
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
@@ -65,28 +65,13 @@ android:textSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/button_selectorcolor"
-        android:text="When do i receive notification in a day"
+        android:text="When will i receive notifications from MyBuddy?"
         android:textStyle="bold"
         android:textSize="20dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Everyday morning at 10 am application notifies about food going to expire which we feel appropriate time of the day"
-        android:textSize="20dp"/>
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:background="@color/button_selectorcolor"
-        android:text="Can i edit the quantity for the already entered food item"
-        android:textSize="20dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Yes we do have an option to edit and update itemname,expiry and quantity of food item. Explicitly there is a symbol for it which is placed at extreme left of every food item displayed"
+        android:text="Every morning at 10 AM, MyBuddy notifies you about food that going to expire."
         android:textSize="20dp"/>
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
@@ -96,12 +81,27 @@ android:textSize="20dp"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:background="@color/button_selectorcolor"
-        android:text="Is MyBuddy available for MAC version"
+        android:text="Can I edit the information for a food item after I enter it?"
         android:textSize="20dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Yes, its coming soon. Please stay tuned with Appstore!!"
+        android:text="Yes, and item can be edited. Expiry date, quantity, and units can be updated. There is a symbol for it which is placed at the right of every food item displayed"
+        android:textSize="20dp"/>
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:background="@color/button_selectorcolor"
+        android:text="Is MyBuddy available for iOS"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Not yet, but it is coming soon. Please stay tuned!!"
         android:textSize="20dp"/>
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
@@ -111,12 +111,12 @@ android:textSize="20dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:background="@color/button_selectorcolor"
-                android:text="Is there any premium version available for MyBuddy application with advanced recipe"
+                android:text="Is there a premium version of MyBuddy available?"
                 android:textSize="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="We are working on it and definitely our app promising recipes in near future"
+                android:text="We are working on it and will be expanding features in the near future"
                 android:textSize="20dp"/>
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
