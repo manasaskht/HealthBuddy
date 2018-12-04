@@ -14,7 +14,7 @@ public class HelpActivity extends AppCompatActivity {
 
         setTitle(getResources().getString(R.string.help));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.colorAccent)));
     }
 
