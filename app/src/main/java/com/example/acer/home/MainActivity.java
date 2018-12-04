@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity
             switch(item.getItemId())
             {
                 case  R.id.help :
-                    i = new Intent(this, HelpActivity.class);
-                    startActivity(i);
+                   Intent helpIntent =new Intent(this,HelpActivity.class);
+                    startActivity(helpIntent);
                     break;
 
                 case R.id.call:
