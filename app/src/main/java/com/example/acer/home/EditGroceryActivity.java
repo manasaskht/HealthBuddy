@@ -24,9 +24,12 @@ public class EditGroceryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_grocery);
+
+        setTitle(getResources().getString(R.string.editGrocery));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final EditText txtEditedExpiryDate =(EditText)findViewById(R.id.txtSavedExpiryDate);
-        final TextView txtEditedGroceryName = (TextView) findViewById(R.id.txtSavedGroceryName);
+
+        final EditText txtEditedExpiryDate = findViewById(R.id.txtSavedExpiryDate);
+        final TextView txtEditedGroceryName = findViewById(R.id.txtSavedGroceryName);
         final  EditText txtEditedQuantity = findViewById(R.id.txtSavedQuantity);
         final Button btnSaveChanges = findViewById(R.id.btnSaveChanges);
         final Spinner spinnerEditedUnit = findViewById(R.id.unitedited_spinner);

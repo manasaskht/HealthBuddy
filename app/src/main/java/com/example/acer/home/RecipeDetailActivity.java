@@ -43,7 +43,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         //https://stackoverflow.com/questions/46954409/how-to-send-data-from-fragment-to-another-activity
         int recipeID = getIntent().getIntExtra("recipeID", 0);
-        //txtRecipeName = findViewById(R.id.recipeName);
+
         imgRecipeImageURL = findViewById(R.id.recipeImage);
         txtIngredients = findViewById(R.id.ingredients);
         txtPreparationTime = findViewById(R.id.preparationTime);
@@ -87,7 +87,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private void BindResponseToDetailView(RecipeDetail recipeDetail) {
 
-        //txtRecipeName.setText(recipeDetail.RecipeName);
+        setTitle(recipeDetail.RecipeName);
         Picasso.with(getApplicationContext()).load(recipeDetail.RecipeImageURL).fit().into(imgRecipeImageURL);
         txtIngredients.setText(recipeDetail.Ingredients);
         txtPreparationTime.setText(recipeDetail.PreparationTime);

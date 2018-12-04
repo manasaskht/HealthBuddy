@@ -42,9 +42,10 @@ public class AddGroceryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_grocery);
-        //Toolbar toolbar = findViewById(R.id.addtoolbar);
-        //setSupportActionBar(toolbar);
+
+        setTitle(getResources().getString(R.string.addGrocery));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
         final EditText txtExpiryDate =  findViewById(R.id.txtExpiryDate);
         final Button btnSaveGroceryDetail = findViewById(R.id.btnSave);
         final AutoCompleteTextView txtSearchBox = findViewById(R.id.autoTxtSearchGrocery);
