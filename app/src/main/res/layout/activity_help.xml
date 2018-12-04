@@ -71,7 +71,7 @@ android:textSize="20dp"
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Every morning at 10 AM, MyBuddy notifies you about food that going to expire."
+        android:text="Every morning at 10 AM, MyBuddy notifies you about food that is going to expire."
         android:textSize="20dp"/>
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
@@ -86,7 +86,7 @@ android:textSize="20dp"
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Yes, and item can be edited. Expiry date, quantity, and units can be updated. There is a symbol for it which is placed at the right of every food item displayed"
+        android:text="Yes, any item can be edited. Expiry date, quantity, and units can be updated. There is a symbol for it which is placed at the right of every food item displayed"
         android:textSize="20dp"/>
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
