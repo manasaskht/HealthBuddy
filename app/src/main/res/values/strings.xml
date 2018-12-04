@@ -48,6 +48,7 @@ Desc       : Values of all the labels and API
     <string name="nav_logout">Logout</string>
     <string name="addGrocery">Add grocery</string>
     <string name="editGrocery">Edit grocery</string>
+    <string name="help">Help</string>
     <string name="lblGroceryName">Grocery Name</string>
     <string name="GroceryTextHint">Grocery Name</string>
     <string name="lblQuantity">Quantity</string>

@@ -2,6 +2,7 @@ package com.example.acer.home;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ import java.util.List;
  */
 public class AddGroceryActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener setDateListener;
-    private String TAG ="AddGrcoery";
     String[] groceriesList = null ;
     AutoCompleteTextView searchableTextView;
     @Override
@@ -45,12 +45,13 @@ public class AddGroceryActivity extends AppCompatActivity {
 
         setTitle(getResources().getString(R.string.addGrocery));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.colorAccent)));
+
         final EditText txtExpiryDate =  findViewById(R.id.txtExpiryDate);
         final Button btnSaveGroceryDetail = findViewById(R.id.btnSave);
         final AutoCompleteTextView txtSearchBox = findViewById(R.id.autoTxtSearchGrocery);
         final EditText txtAddQuantity = findViewById(R.id.txtQuantity);
-        final Spinner unitSpinner = (Spinner)findViewById(R.id.units_Spinner);
+        final Spinner unitSpinner = findViewById(R.id.units_Spinner);
         String [] arrUnit = getApplicationContext().getResources().getStringArray(R.array.arrUnit);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arrUnit);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -105,7 +106,7 @@ public class AddGroceryActivity extends AppCompatActivity {
     }
     public void PopulateGroceryName (CharSequence inputText )
     {
-        String apiURL =getString(R.string.azureApiUrl).concat("Grocery?grocerykeyword=" + inputText)  ;
+        String apiURL = getString(R.string.azureApiUrl).concat("Grocery?grocerykeyword=" + inputText)  ;
         try {
 
             JsonArrayRequest azureApiRequest = new JsonArrayRequest(Request.Method.GET, apiURL, null, new Response.Listener<JSONArray>() {

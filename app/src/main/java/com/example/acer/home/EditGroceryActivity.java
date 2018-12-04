@@ -27,6 +27,7 @@ public class EditGroceryActivity extends AppCompatActivity {
 
         setTitle(getResources().getString(R.string.editGrocery));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.colorAccent)));
 
         final EditText txtEditedExpiryDate = findViewById(R.id.txtSavedExpiryDate);
         final TextView txtEditedGroceryName = findViewById(R.id.txtSavedGroceryName);
