@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MyBuddy is a grocery remainder application which helps to store foods and notify expiry dates. It also supports the phone's pedometer and provides simple recepies"
+                android:text="MyBuddy is a grocery reminder application which helps to store foods and notify expiry dates. It also supports the phone's pedometer and provides simple recepies"
 android:textSize="20dp"
 
             />
