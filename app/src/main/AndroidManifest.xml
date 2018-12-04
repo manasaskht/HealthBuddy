@@ -30,6 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".AddGroceryActivity" />
         <activity android:name=".EditGroceryActivity"></activity>
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>
