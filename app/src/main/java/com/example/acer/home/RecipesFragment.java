@@ -1,5 +1,7 @@
 package com.example.acer.home;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -62,11 +64,13 @@ public class RecipesFragment extends Fragment {
 
     private ArrayList<RecipeCard> GetRecipes() {
         DBRepository dbImplementer= new DBRepository(getContext());
-
-        List<String> uniqueGroceryList =dbImplementer.GetUniqueGroceryItem();
-        String url = getResources().getString(R.string.azureApiUrl) + "Recipe?GroceryList=" + TextUtils.join(",",uniqueGroceryList);
         final ArrayList<RecipeCard> recipes = new ArrayList<>();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        try {
+            if (Validation.IsNetworkConnected((ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+                List<String> uniqueGroceryList = dbImplementer.GetUniqueGroceryItem();
+                String url = getResources().getString(R.string.azureApiUrl) + "Recipe?GroceryList=" + TextUtils.join(",", uniqueGroceryList);
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             try{
@@ -97,6 +101,16 @@ public class RecipesFragment extends Fragment {
         });
 
         SingletonRequestQueue.getInstance(getContext()).addToRequestQueue(request);
+            }
+            else
+            {
+                Toast.makeText(getContext(), "Make sure you are connected to the Internet to get the recipe suggestions.", Toast.LENGTH_LONG).show();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
         return recipes;
     }
 }

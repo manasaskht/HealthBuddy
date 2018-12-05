@@ -1,5 +1,8 @@
 package com.example.acer.home;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 /**
@@ -35,5 +38,20 @@ public class Validation {
         }
         return  true;
     }
+    /**
+     * Method which checks the network connectivity.
+     * @return false if device is in airplane mode.
+     * Reference URL :https://stackoverflow.com/questions/23753245/do-i-need-access-network-state-permission-if-i-have-internet-one
+     */
+    public static boolean IsNetworkConnected( ConnectivityManager connectivityManager)
+    {
+        boolean isOnline=false;
+        NetworkInfo ntwInfo = connectivityManager.getActiveNetworkInfo();
+        if (ntwInfo !=null)
+        {
+            isOnline = ntwInfo.isConnected();
 
+        }
+        return isOnline ;
+    }
 }

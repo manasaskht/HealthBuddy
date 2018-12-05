@@ -2,6 +2,8 @@ package com.example.acer.home;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -108,7 +111,7 @@ public class AddGroceryActivity extends AppCompatActivity {
     {
         String apiURL = getString(R.string.azureApiUrl).concat("Grocery?grocerykeyword=" + inputText)  ;
         try {
-
+            if (Validation.IsNetworkConnected((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
             JsonArrayRequest azureApiRequest = new JsonArrayRequest(Request.Method.GET, apiURL, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
@@ -125,8 +128,15 @@ public class AddGroceryActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
-            SingletonRequestQueue.getInstance(getApplicationContext()).addToRequestQueue(azureApiRequest);
+                });
+                SingletonRequestQueue.getInstance(getApplicationContext()).addToRequestQueue(azureApiRequest);
+            }
+            else
+            {
+                CloseKeyBoard();
+
+                Toast.makeText(getApplicationContext(), "Make sure you are connected to the Internet to get the grocery suggestions.", Toast.LENGTH_SHORT).show();
+            }
         }
         catch (Exception ex)
         {
@@ -138,6 +148,15 @@ public class AddGroceryActivity extends AppCompatActivity {
     {
         finish();
         return true;
+    }
+
+    /**
+     * Method that close the keyboard once the user clicks the "Get Weather details" Button
+     */
+    private void CloseKeyBoard()
+    {
+        InputMethodManager inputmanager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputmanager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
 }
