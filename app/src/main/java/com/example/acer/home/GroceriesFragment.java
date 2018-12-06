@@ -164,9 +164,9 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 2);
         notificationIntent.putExtra(AlarmReceiver.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //Schedule time to 10:30 am
+
         int interval = 1000 * 60*20;
-        /* Set the alarm to start at 10:30 AM */
+        /* Set the alarm to start at 08:00 AM */
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY,10);
