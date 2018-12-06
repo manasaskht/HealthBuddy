@@ -2,6 +2,7 @@ package com.example.acer.home;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ public class RecipesFragment extends Fragment {
     private RecipeCardAdapter adapter;
     private RecyclerView recipeRecyclerView;
     private ArrayList<RecipeCard> recipeList;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,8 @@ public class RecipesFragment extends Fragment {
         // Reference URL : https://stackoverflow.com/questions/30093111/findviewbyid-not-working-in-fragment
         View recipeView = inflater.inflate(R.layout.fragment_recipes, container,false);
         recipeRecyclerView = recipeView.findViewById(R.id.recyclerVwRecipes);
-
+        progressDialog = new ProgressDialog(getContext());
+        ShowLoader();
         recipeList = GetRecipes();
         adapter = new RecipeCardAdapter(this.getContext(), recipeList);
 
@@ -67,7 +70,7 @@ public class RecipesFragment extends Fragment {
         final ArrayList<RecipeCard> recipes = new ArrayList<>();
         try {
             if (Validation.IsNetworkConnected((ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE))) {
-                List<String> uniqueGroceryList = dbImplementer.GetUniqueGroceryItem();
+                final List<String> uniqueGroceryList = dbImplementer.GetUniqueGroceryItem();
                 String url = getResources().getString(R.string.azureApiUrl) + "Recipe?GroceryList=" + TextUtils.join(",", uniqueGroceryList);
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -83,11 +86,20 @@ public class RecipesFragment extends Fragment {
                     RecipeCard recipeCard = new RecipeCard(recipe.getInt("RecipeID"), recipe.getString("RecipeName"), recipe.getString("RecipeImageURL"));
                     recipes.add(recipeCard);
                 }
+                if(uniqueGroceryList != null && uniqueGroceryList.size() <= 0 && !matchFound){
+                    Toast.makeText(getContext(), R.string.errorNoGroceries, Toast.LENGTH_LONG).show();
+                }
+                else if(!matchFound){
+                    Toast.makeText(getContext(), R.string.errorNoRelatedSuggestions, Toast.LENGTH_LONG).show();
+                }
             }
             catch(Exception ex)
             {
-                Toast.makeText(getContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT).show();
                 ex.printStackTrace();
+            }
+            finally {
+                progressDialog.dismiss();
             }
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
                 recipeRecyclerView.setLayoutManager(layoutManager);
@@ -113,4 +125,12 @@ public class RecipesFragment extends Fragment {
         }
         return recipes;
     }
+	
+	    //To show loader until the data is loaded in the UI
+    //Reference: https://stackoverflow.com/questions/10446125/how-to-show-progress-dialog-in-android
+    public void ShowLoader(){
+        progressDialog.setMessage(getResources().getString(R.string.loadingRecipes));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+	}
 }

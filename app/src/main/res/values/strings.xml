@@ -84,9 +84,17 @@ Desc       : Values of all the labels and API
         <item>
             pack
         </item>
+        <item>
+            pc
+        </item>
     </string-array>
     <string name="errorRetrievingRecipes">Error occurred while retrieving the recipe suggestions... Please try after sometime!!!</string>
     <string name="preparation">Preparation:</string>
     <string name="ingredients">Ingredients:</string>
     <string name="sourceLink">Source:</string>
+    <string name="errorQuantityNotGreaterThanZero">Quantity should be greater than zero!!!</string>
+    <string name="errorEnterRequiredFields">Please enter the required fields!!!</string>
+    <string name="errorNoGroceries">Please add your groceries to get relevant suggestions... Here are few recipes, you may be interested!!!</string>
+    <string name="errorNoRelatedSuggestions">Sorry! We are unable to find the relevant recipes for your groceries. Here are few recipes, you may be interested!!!</string>
+    <string name="loadingRecipes">Please wait while we retrieve customised suggestions for you...</string>
 </resources>

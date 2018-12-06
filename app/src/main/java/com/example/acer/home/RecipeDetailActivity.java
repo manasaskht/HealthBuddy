@@ -69,7 +69,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     recipeDetail.SourceLink = response.getString("SourceLink");
                     BindResponseToDetailView(recipeDetail);
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
