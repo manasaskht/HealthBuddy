@@ -169,8 +169,8 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         /* Set the alarm to start at 08:00 AM */
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,10);
-        calendar.set(Calendar.MINUTE,30);
+        calendar.set(Calendar.HOUR_OF_DAY,7);
+        calendar.set(Calendar.MINUTE,59);
         calendar.set(Calendar.AM_PM,Calendar.AM);
         
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
