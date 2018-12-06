@@ -40,4 +40,8 @@ public class DBRepository {
     {
        return dbImplementer.groceryDao().fetchDistinctGroceryName();
     }
+    public List<String> GetExpiringGroceries (String todayDate)
+    {
+        return dbImplementer.groceryDao().getExpiredGroceries(todayDate);
+    }
 }

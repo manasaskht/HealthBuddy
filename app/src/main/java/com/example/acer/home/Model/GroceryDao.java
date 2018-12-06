@@ -21,5 +21,7 @@ public interface GroceryDao {
     void DeleteSingleGrocery(int rowID);
 @Query("Select  distinct groceryName from GroceryModel")
     List<String> fetchDistinctGroceryName();
+@Query("Select groceryName from GroceryModel where expiryDate = :todayDate")
+    List<String> getExpiredGroceries(String todayDate);
 
 }
