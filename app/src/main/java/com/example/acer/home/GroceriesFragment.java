@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -163,15 +164,15 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 2);
         notificationIntent.putExtra(AlarmReceiver.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //Sarmad Code
+        //Schedule time to 10:30 am
         int interval = 1000 * 60*20;
         /* Set the alarm to start at 10:30 AM */
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,7 );
-        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.HOUR_OF_DAY,10);
+        calendar.set(Calendar.MINUTE,30);
         calendar.set(Calendar.AM_PM,Calendar.AM);
-        //Sarmad Code end
+        
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 1000 * 60 * 20, pendingIntent);
@@ -184,7 +185,8 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         Notification.Builder builder = new Notification.Builder(getContext());
         builder.setContentTitle("Groceries are getting expired !");
         builder.setContentText(content);
-        builder.setSmallIcon(R.drawable.mybuddylogo);
+        builder.setSmallIcon(R.drawable.logo);
+        //builder.setLargeIcon(((BitmapDrawable) this.getResources().getDrawable(R.drawable.mybuddylogo)).getBitmap());
         return builder.build();
     }
 
