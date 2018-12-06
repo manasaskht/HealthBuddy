@@ -156,6 +156,7 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         }
     }
 
+	//https://gist.github.com/BrandonSmith/6679223
     private void scheduleNotification(Notification notification) {
 
         Intent notificationIntent = new Intent(getActivity(), AlarmReceiver.class);
@@ -167,9 +168,9 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         /* Set the alarm to start at 10:30 AM */
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,8 );
-        calendar.set(Calendar.MINUTE, 16);
-        calendar.set(Calendar.AM_PM,Calendar.PM);
+        calendar.set(Calendar.HOUR_OF_DAY,7 );
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.AM_PM,Calendar.AM);
         //Sarmad Code end
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
@@ -177,6 +178,8 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         //Working code
         //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
+	
+	//https://gist.github.com/BrandonSmith/6679223
     private Notification getNotification(String content) {
         Notification.Builder builder = new Notification.Builder(getContext());
         builder.setContentTitle("Groceries are getting expired !");
@@ -185,6 +188,7 @@ public class GroceriesFragment extends Fragment implements RecyclerItemTouchHelp
         return builder.build();
     }
 
+	//https://gist.github.com/BrandonSmith/6679223
     private String fetchExpiredItem()
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d-MM-yyyy");

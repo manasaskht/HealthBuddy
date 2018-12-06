@@ -57,21 +57,30 @@ public class GroceryCardAdapter extends RecyclerView.Adapter <GroceryCardAdapter
         int expiresIn = getExpiryDays(groceryCard.expiryDate);
         if (expiresIn > 0)
         {
-            groceryViewHolder.vExpriryDate.setText(expiresIn +" days");
+            groceryViewHolder.vExpiryDate.setText(expiresIn +" days");
+            groceryViewHolder.vExpiryDate.setTextColor(mContext.getColor(R.color.black));
+            groceryViewHolder.txtExpiryText.setText("Expires In");
+            groceryViewHolder.txtExpiryText.setTextColor(mContext.getColor(R.color.black));
         }
         else if ( expiresIn < 0)
         {
-            groceryViewHolder.vExpriryDate.setText("Expired");
+            groceryViewHolder.vExpiryDate.setText("Expired");
+            groceryViewHolder.txtExpiryText.setTextColor(mContext.getColor(R.color.white));
+            groceryViewHolder.vExpiryDate.setTextColor(mContext.getColor(R.color.red));
         }
         else
         {
-            groceryViewHolder.vExpriryDate.setText("Today");
+            groceryViewHolder.txtExpiryText.setText("Expires   ");
+            groceryViewHolder.vExpiryDate.setText("   Today");
+            groceryViewHolder.txtExpiryText.setTextColor(mContext.getColor(R.color.orange));
+            groceryViewHolder.vExpiryDate.setTextColor(mContext.getColor(R.color.orange));
+
         }
-        //groceryViewHolder.vExpriryDate.setText(groceryCard.expiryDate);
+
         groceryViewHolder.vQuantity.setText(String.valueOf(groceryCard.quantity) + " "+ groceryCard.unit);
         groceryViewHolder.vGroceryName.setText(groceryCard.groceryName);
     }
-    //Method to calculate the no of days in hwhich product is going to get expired.
+    //Method to calculate the no of days in which product is going to get expired.
     public int getExpiryDays (String expiryDate)
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -104,17 +113,19 @@ public class GroceryCardAdapter extends RecyclerView.Adapter <GroceryCardAdapter
     public class GroceryViewHolder extends RecyclerView.ViewHolder {
         protected TextView vGroceryName;
         protected TextView vQuantity;
-        protected TextView vExpriryDate;
+        protected TextView vExpiryDate;
         protected ImageView vEditButton;
         public LinearLayout viewFront;
+        public TextView txtExpiryText;
 
         public GroceryViewHolder(View groceryView, final onCardItemClickListener listener) {
             super(groceryView);
             vGroceryName = groceryView.findViewById(R.id.txtGroceryName);
             vQuantity = groceryView.findViewById(R.id.txtQuantity);
-            vExpriryDate = groceryView.findViewById(R.id.txtExpiryDate);
+            vExpiryDate = groceryView.findViewById(R.id.txtExpiryDate);
             vEditButton  = groceryView.findViewById(R.id.imgEdit);
             viewFront = groceryView.findViewById(R.id.view_front);
+            txtExpiryText = groceryView.findViewById(R.id.txtExpiryText);
 
             groceryView.setOnClickListener(new View.OnClickListener() {
                 @Override

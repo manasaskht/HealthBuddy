@@ -81,6 +81,9 @@ Desc       : Values of all the labels and API
         <item>
             ml
         </item>
+        <item>
+            pack
+        </item>
     </string-array>
     <string name="errorRetrievingRecipes">Error occurred while retrieving the recipe suggestions... Please try after sometime!!!</string>
     <string name="preparation">Preparation:</string>
