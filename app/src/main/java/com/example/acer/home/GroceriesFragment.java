@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * This class contains the code to implement the List view which displays grocery name, quantity, expiry date and intake calories
- * @author  Sarmad Noor
+ * @author  Sarmad Noor,Manasa
  * @version 1.0
  * @since   20 November, 2018
  */
