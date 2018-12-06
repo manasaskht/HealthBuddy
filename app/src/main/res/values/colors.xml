@@ -13,4 +13,5 @@
     <color name="button_selectorcolor">#d2d2d2</color>
     <color name="red">#B30000</color>
     <color name="orange">#FF6600</color>
+    <color name="darkgrey">#6b6161</color>
 </resources>

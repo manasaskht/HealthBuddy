@@ -20,7 +20,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@color/colorAccent"
+            android:background="@color/darkgrey"
+            android:textColor="@color/white"
             android:text="ABOUT_US"
             android:textSize="25dp"/>
     <android.support.v4.widget.Space
@@ -40,7 +41,8 @@ android:textSize="20dp"
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/darkgrey"
+        android:textColor="@color/white"
         android:text="FAQ"
         android:textSize="25dp"/>
     <android.support.v4.widget.Space

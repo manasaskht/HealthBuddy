@@ -46,7 +46,7 @@ public class RecipesFragment extends Fragment {
     private RecyclerView recipeRecyclerView;
     private ArrayList<RecipeCard> recipeList;
     private ProgressDialog progressDialog;
-
+    private Context context;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +54,7 @@ public class RecipesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        context = container.getContext();
         // Reference URL : https://stackoverflow.com/questions/30093111/findviewbyid-not-working-in-fragment
         View recipeView = inflater.inflate(R.layout.fragment_recipes, container,false);
         recipeRecyclerView = recipeView.findViewById(R.id.recyclerVwRecipes);
@@ -87,19 +88,19 @@ public class RecipesFragment extends Fragment {
                     recipes.add(recipeCard);
                 }
                 if(uniqueGroceryList != null && uniqueGroceryList.size() <= 0 && !matchFound){
-                    Toast.makeText(getContext(), R.string.errorNoGroceries, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.errorNoGroceries, Toast.LENGTH_LONG).show();
                 }
                 else if(!matchFound){
-                    Toast.makeText(getContext(), R.string.errorNoRelatedSuggestions, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.errorNoRelatedSuggestions, Toast.LENGTH_LONG).show();
                 }
             }
             catch(Exception ex)
             {
-                Toast.makeText(getContext(), R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.errorRetrievingRecipes, Toast.LENGTH_SHORT).show();
                 ex.printStackTrace();
             }
             finally {
-                progressDialog.dismiss();
+                progressDialog.dismiss();   
             }
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
                 recipeRecyclerView.setLayoutManager(layoutManager);
@@ -116,7 +117,7 @@ public class RecipesFragment extends Fragment {
             }
             else
             {
-                Toast.makeText(getContext(), "Make sure you are connected to the Internet to get the recipe suggestions.", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Make sure you are connected to the Internet to get the recipe suggestions.", Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception ex)
@@ -129,7 +130,7 @@ public class RecipesFragment extends Fragment {
 	    //To show loader until the data is loaded in the UI
     //Reference: https://stackoverflow.com/questions/10446125/how-to-show-progress-dialog-in-android
     public void ShowLoader(){
-        progressDialog.setMessage(getResources().getString(R.string.loadingRecipes));
+        progressDialog.setMessage(context.getResources().getString(R.string.loadingRecipes));
         progressDialog.setCancelable(false);
         progressDialog.show();
 	}
